@@ -4,13 +4,18 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using System.Net.Sockets;
 
 public class FishAgent : Agent
 {
-    [SerializeField] float moveSpeed = 20f;
+    [SerializeField] private float thrustForce = 30f;
+    [SerializeField] private float rotationSpeed = 200f;
+
     private float minimumVelocity = 0.4f;
     [SerializeField] GameObject visuals;
     private bool facingLeft = true;
+    private float rotationPenaltyTimer = 0;
+    
 
     private Rigidbody2D rb;
 
@@ -36,16 +41,24 @@ public class FishAgent : Agent
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
+
+        Vector3 rotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
+        sensor.AddObservation(rotation);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
-        float moveX = actions.ContinuousActions[0];
-        float moveY = actions.ContinuousActions[1];
+        float rotateInput  = actions.ContinuousActions[0];
+        float thrustInput  = actions.ContinuousActions[1];
 
-        // transform.localPosition += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
+        rb.angularVelocity = -rotateInput * rotationSpeed;
+        Vector2 thrustDirection = transform.up;
+        rb.AddForce(thrustDirection * thrustInput * thrustForce);
 
-        Vector2 movement = new Vector2(moveX, moveY);
-        rb.velocity = movement * moveSpeed;
+        if (thrustInput < 0) {
+            AddReward(-0.05f);
+        }
+
+        CheckRotationPenalty();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -55,32 +68,7 @@ public class FishAgent : Agent
         continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<Food>(out Food food)) {
-            AddReward(1f);
-            waterColor.color = waterColor_color;
-            // EndEpisode();
-            MoveFoodTarget();
-        }
-
-        if (collision.TryGetComponent<Wall>(out Wall wall)) {
-            AddReward(-1f);
-            waterColor.color = Color.grey;
-            EndEpisode();
-        }
-    }
-
-    public void OCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.TryGetComponent<Wall>(out Wall wall)) {
-            AddReward(-3f);
-            waterColor.color = Color.grey;
-            EndEpisode();
-        }
-    }
-
-    private void MoveFoodTarget() {
+    public void MoveFoodTarget() {
         targetTransform.localPosition = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
     }
 
@@ -89,26 +77,44 @@ public class FishAgent : Agent
         if (rb.velocity.magnitude > minimumVelocity)
         {
             Vector2 direction = rb.velocity.normalized;
-
-            // Flip the sprite based on horizontal direction
             facingLeft = direction.x < 0;
             Flip();
-
-            // Calculate the rotation angle
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-            
-            // Apply rotation
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
-        else
-        {
-            // Reset rotation when not moving
-            transform.rotation = Quaternion.Euler(0, 0, 90);
         }
         
     } 
 
+    private void CheckRotationPenalty()
+    {
+        // Get normalized velocities
+        float angularSpeed = Mathf.Abs(rb.angularVelocity);
+        float linearSpeed = rb.velocity.magnitude;
+
+        // Check conditions for penalty
+        float minimumVelocity = 20f;
+
+        // Debug.Log("angularSpeed: " + angularSpeed + " linearSpeed: " + linearSpeed);
+        if (angularSpeed > 20f && linearSpeed < minimumVelocity)
+        {
+            rotationPenaltyTimer += Time.deltaTime;
+            
+            // Apply increasing penalty over time
+            if (rotationPenaltyTimer > 1f) // 1 second threshold
+            {
+                // Debug.Log("penalizare");
+                AddReward(-0.5f * Time.deltaTime);
+            }
+        }
+        else
+        {
+            rotationPenaltyTimer = 0f;
+        }
+    }
+
     private void Flip() {
         visuals.transform.localScale = facingLeft ? new Vector3(1, 1, 1) : new Vector3(1, -1, 1);
+    }
+
+    public void WaterColor(bool normal_Color, Color color) {
+        waterColor.color = normal_Color ? waterColor_color : color;
     }
 }
