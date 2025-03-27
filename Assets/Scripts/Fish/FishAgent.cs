@@ -9,14 +9,13 @@ using System.Net.Sockets;
 public class FishAgent : Agent
 {
     [SerializeField] private float thrustForce = 30f;
-    [SerializeField] private float rotationSpeed = 200f;
+    [SerializeField] private float rotationSpeed = 50f;
 
     private float minimumVelocity = 0.4f;
-    [SerializeField] GameObject visuals;
+    // [SerializeField] GameObject visuals;
     private bool facingLeft = true;
-    private float rotationPenaltyTimer = 0;
     
-
+    
     private Rigidbody2D rb;
 
     [SerializeField] Transform targetTransform;
@@ -29,36 +28,39 @@ public class FishAgent : Agent
         waterColor_color = waterColor.color;
     }
 
-
     public override void OnEpisodeBegin()
     {
-        // transform.localPosition = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
+        // transform.localPosition = new Vector3(Random.Range(-40f, 40f), Random.Range(-20f, 15f), 0);
         transform.localPosition = Vector3.zero;
         MoveFoodTarget();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
+        sensor.AddObservation(targetTransform.localPosition.x);
+        sensor.AddObservation(targetTransform.localPosition.z);
+        
+        sensor.AddObservation(transform.localPosition.x);
+        sensor.AddObservation(transform.localPosition.z);
 
-        Vector3 rotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
-        sensor.AddObservation(rotation);
+        sensor.AddObservation(transform.rotation.z);
+        sensor.AddObservation(0);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
         float rotateInput  = actions.ContinuousActions[0];
         float thrustInput  = actions.ContinuousActions[1];
 
+        // if (rotateInput < 0.2 && rotateInput > -0.2) rotateInput = 0f;
+        // if (thrustInput < 0.2 && thrustInput > -0.6) thrustInput = 0f;
+
         rb.angularVelocity = -rotateInput * rotationSpeed;
         Vector2 thrustDirection = transform.up;
         rb.AddForce(thrustDirection * thrustInput * thrustForce);
 
         if (thrustInput < 0) {
-            AddReward(-0.05f);
+            AddReward(-0.4f);
         }
-
-        CheckRotationPenalty();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -72,47 +74,20 @@ public class FishAgent : Agent
         targetTransform.localPosition = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
     }
 
-    void Update()
-    {
-        if (rb.velocity.magnitude > minimumVelocity)
-        {
-            Vector2 direction = rb.velocity.normalized;
-            facingLeft = direction.x < 0;
-            Flip();
-        }
+    // void Update()
+    // {
+    //     if (rb.velocity.magnitude > minimumVelocity)
+    //     {
+    //         Vector2 direction = rb.velocity.normalized;
+    //         facingLeft = direction.x < 0;
+    //         Flip();
+    //     }
         
-    } 
+    // }
 
-    private void CheckRotationPenalty()
-    {
-        // Get normalized velocities
-        float angularSpeed = Mathf.Abs(rb.angularVelocity);
-        float linearSpeed = rb.velocity.magnitude;
-
-        // Check conditions for penalty
-        float minimumVelocity = 20f;
-
-        // Debug.Log("angularSpeed: " + angularSpeed + " linearSpeed: " + linearSpeed);
-        if (angularSpeed > 20f && linearSpeed < minimumVelocity)
-        {
-            rotationPenaltyTimer += Time.deltaTime;
-            
-            // Apply increasing penalty over time
-            if (rotationPenaltyTimer > 1f) // 1 second threshold
-            {
-                // Debug.Log("penalizare");
-                AddReward(-0.5f * Time.deltaTime);
-            }
-        }
-        else
-        {
-            rotationPenaltyTimer = 0f;
-        }
-    }
-
-    private void Flip() {
-        visuals.transform.localScale = facingLeft ? new Vector3(1, 1, 1) : new Vector3(1, -1, 1);
-    }
+    // private void Flip() {
+    //     visuals.transform.localScale = facingLeft ? new Vector3(1, 1, 1) : new Vector3(1, -1, 1);
+    // }
 
     public void WaterColor(bool normal_Color, Color color) {
         waterColor.color = normal_Color ? waterColor_color : color;
