@@ -17,6 +17,9 @@ public class FishAgent : Agent
 
     private float health, hunger, stress, age;
 
+    private Vector2 swimLocation;
+    private float swimLocationTimer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,8 +29,8 @@ public class FishAgent : Agent
     public override void OnEpisodeBegin()
     {
         // transform.localPosition = Vector3.zero;
-        transform.localPosition = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
-        envObservator.MoveAllFoodTargets();
+        // transform.localPosition = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
+        // envObservator.SpawnFood();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -40,7 +43,11 @@ public class FishAgent : Agent
         sensor.AddObservation(transform.localPosition.x);
         sensor.AddObservation(transform.localPosition.y);
 
-        envObservator.AddFoodObservations(sensor, transform.position);
+        if (!envObservator.AddFoodObservations(sensor, transform.position)) {
+            sensor.AddObservation(swimLocation.x);
+            sensor.AddObservation(swimLocation.y);
+        }
+
         envObservator.AddFishObservations(sensor, transform.position);
     }
     public override void OnActionReceived(ActionBuffers actions)
@@ -62,7 +69,14 @@ public class FishAgent : Agent
         continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 
-    
+    void Update()
+    {
+        swimLocationTimer += Time.deltaTime;
+        if (swimLocationTimer >= 1f || Vector2.Distance(swimLocation, transform.position) < 0.2f) {
+            swimLocationTimer = 0;
+            swimLocation = new Vector2(Random.Range(-50f, 50f), Random.Range(-28f, 18f));
+        }
+    }
 
     private void FlipAndRotate() {
         Vector2 direction = rb.velocity.normalized;
