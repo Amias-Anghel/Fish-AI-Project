@@ -110,11 +110,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.40723714, y: 0.40723714, z: 0.40723714}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3887826866164524045}
   - {fileID: 6509944990471452465}
+  - {fileID: 3887826866164524045}
   - {fileID: 3401419207560343328}
   m_Father: {fileID: 5192855088259375456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -228,8 +228,8 @@ Transform:
   m_GameObject: {fileID: 4402502184100386514}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0, y: -0.02, z: 0}
+  m_LocalScale: {x: 0.40723714, y: 0.40723714, z: 0.40723714}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5192855088259375456}
@@ -266,8 +266,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0728302, y: -1.7307086}
-  m_Size: {x: 4.703005, y: 15.50484}
+  m_Offset: {x: -0.005940308, y: -1.7307088}
+  m_Size: {x: 4.569225, y: 15.504839}
   m_Direction: 0
 --- !u!1 &6491397776559264679
 GameObject:
@@ -381,8 +381,8 @@ Transform:
   m_GameObject: {fileID: 7868802249703472381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.000000059604645, y: 2.9526997, z: 0}
+  m_LocalScale: {x: 0.40723714, y: 0.40723714, z: 0.40723714}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5192855088259375456}
@@ -493,7 +493,6 @@ GameObject:
   - component: {fileID: 815076137502788260}
   - component: {fileID: 3934304249014874818}
   - component: {fileID: 168629565369714687}
-  - component: {fileID: 7587815820418015180}
   - component: {fileID: 7574607177815384583}
   m_Layer: 6
   m_Name: fish
@@ -595,7 +594,6 @@ MonoBehaviour:
   MaxStep: 1000
   thrustForce: 30
   rotationSpeed: 50
-  visuals: {fileID: 1683516945569305404}
   targetTransform: {fileID: 0}
   waterColor: {fileID: 0}
 --- !u!114 &168629565369714687
@@ -612,27 +610,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!95 &7587815820418015180
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9199610423061748459}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a22c67b631b60414db2e0974e2d03b59, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7574607177815384583
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,9 +16,17 @@ public class FishHead : MonoBehaviour
         }
 
         if (collision.CompareTag("Wall")) {
-            fishAgent.AddReward(-1f);
+            fishAgent.AddReward(-0.3f);
             fishAgent.WaterColor(false, Color.grey);
-            fishAgent.EndEpisode();
+            // fishAgent.EndEpisode();
+        }
+    }
+
+    private void OCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall")) {
+            fishAgent.AddReward(-0.05f);
+            fishAgent.WaterColor(false, Color.grey);
         }
     }
 
