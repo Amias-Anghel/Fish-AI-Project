@@ -8,11 +8,11 @@ using Unity.MLAgents.Sensors;
 public class FishAgent : Agent
 {
     [SerializeField] private float movementSpeed = 30f;
+    [SerializeField] private float lifeExpentancy = 30f;
     
     private Rigidbody2D rb;
 
     [SerializeField] public EnvObservator envObservator;
-    [SerializeField] SpriteRenderer waterColor;
     private Color waterColor_color;
 
     private float health, hunger, stress, age;
@@ -23,7 +23,6 @@ public class FishAgent : Agent
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        waterColor_color = waterColor.color;
     }
 
     public override void OnEpisodeBegin()
@@ -76,6 +75,11 @@ public class FishAgent : Agent
             swimLocationTimer = 0;
             swimLocation = new Vector2(Random.Range(-50f, 50f), Random.Range(-28f, 18f));
         }
+
+        age += Time.deltaTime;
+        if (age > lifeExpentancy) {
+            Destroy(gameObject);
+        }
     }
 
     private void FlipAndRotate() {
@@ -88,9 +92,5 @@ public class FishAgent : Agent
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg -90;
         transform.rotation = Quaternion.Euler(0, 0, angle);
-    }
-
-    public void WaterColor(bool normal_Color, Color color) {
-        waterColor.color = normal_Color ? waterColor_color : color;
     }
 }

@@ -8,6 +8,7 @@ public class UserControls : MonoBehaviour
     [SerializeField] EnvObservator envObservator;
     [SerializeField] GameObject plantSeed;
     [SerializeField] GameObject food;
+    [SerializeField] List<GameObject> fish;
     private float waitTimer;
 
     private GameObject selected = null;
@@ -28,6 +29,11 @@ public class UserControls : MonoBehaviour
             if (spawn.TryGetComponent<Food>(out Food food)) {
                 envObservator.AddFoodToList(food.transform);
             }
+
+            if (spawn.TryGetComponent<FishAgent>(out FishAgent fish)) {
+                fish.envObservator = envObservator;
+                selected = null;
+            }
         }
     }
 
@@ -37,6 +43,10 @@ public class UserControls : MonoBehaviour
 
     public void SelectFood() {
         selected = food;
+    }
+
+    public void SelectFish() {
+        selected = fish[Random.Range(0, fish.Count)];
     }
 
     public void ClearSelected() {

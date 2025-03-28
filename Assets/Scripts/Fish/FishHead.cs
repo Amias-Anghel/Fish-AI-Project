@@ -10,7 +10,6 @@ public class FishHead : MonoBehaviour
     {
         if (collision.TryGetComponent<Food>(out Food food)) {
             fishAgent.AddReward(1f);
-            fishAgent.WaterColor(true, Color.blue);
             fishAgent.envObservator.RemoveFood(food.transform);
         }
 

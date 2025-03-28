@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 168629565369714687}
   - component: {fileID: 7574607177815384583}
   m_Layer: 6
-  m_Name: fish
+  m_Name: fish_red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,7 +764,6 @@ MonoBehaviour:
   MaxStep: 1000
   movementSpeed: 30
   envObservator: {fileID: 0}
-  waterColor: {fileID: 0}
 --- !u!114 &168629565369714687
 MonoBehaviour:
   m_ObjectHideFlags: 0
