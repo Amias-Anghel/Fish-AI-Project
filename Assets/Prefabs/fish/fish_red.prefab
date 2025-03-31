@@ -763,6 +763,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
   movementSpeed: 30
+  lifeExpentancy: 30
   envObservator: {fileID: 0}
 --- !u!114 &168629565369714687
 MonoBehaviour:

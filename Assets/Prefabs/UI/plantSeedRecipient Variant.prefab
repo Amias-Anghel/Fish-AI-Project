@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4104962477759693866
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 797665471533438064, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: foodPrefab
+      value: 
+      objectReference: {fileID: 6542990157926804543, guid: 974fb341ed303d24bba72a8cfdfdbbea, type: 3}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -70.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 56.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082813473536909128, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781841186473760261, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_Name
+      value: plantSeedRecipient Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474808431601067830, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_Color.b
+      value: 0.34729466
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474808431601067830, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474808431601067830, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33490568
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eb57efbafb7e79c4aae6854e302226c6, type: 3}
