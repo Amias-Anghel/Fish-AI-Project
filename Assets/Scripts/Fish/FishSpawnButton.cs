@@ -17,7 +17,7 @@ public class FishSpawnButton : MonoBehaviour
         userLimits = FindObjectOfType<UserLimits>();
     }
 
-    void OnMouseDrag()
+    void OnMouseDown()
     {
         if (!spawnNew) return;
         spawnNew = false;
@@ -30,21 +30,10 @@ public class FishSpawnButton : MonoBehaviour
         
         spawnedFish = Instantiate(fish[Random.Range(0, fish.Count)], mouseWorldPos, Quaternion.identity);
         spawnedFish.GetComponent<FishAgent>().envObservator = envObservator;
-        spawnedFish.GetComponent<FishAgent>().enabled = false;
-        spawnedFish.transform.GetChild(0).Find("body").gameObject.SetActive(false);
-        spawnedFish.GetComponent<Rigidbody2D>().gravityScale = 5f;
+        spawnedFish.transform.GetChild(0).Find("fall").GetComponent<FishFall>().SetFall();
     }
 
-    void OnMouseUp()
-    {
-        spawnNew = true;
-
-        if (!userLimits.IsInLimits(spawnedFish.transform.position)) {
-            Destroy(spawnedFish);
-        }
-    }
-   
-    void Update()
+    void OnMouseDrag()
     {
         if (!spawnNew) {
             Vector3 mouseScreenPos = Input.mousePosition;
@@ -53,6 +42,15 @@ public class FishSpawnButton : MonoBehaviour
             mouseWorldPos.z = 0;
 
             spawnedFish.transform.position = mouseWorldPos;
+        }
+    }
+
+    void OnMouseUp()
+    {
+        spawnNew = true;
+
+        if (!userLimits.IsInLimits(spawnedFish.transform.position)) {
+            Destroy(spawnedFish);
         }
     }
 }

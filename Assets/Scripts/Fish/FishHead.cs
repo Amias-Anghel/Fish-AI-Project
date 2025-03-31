@@ -28,13 +28,4 @@ public class FishHead : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall")) {
-            transform.parent.parent.GetComponent<Rigidbody2D>().gravityScale = 0.05f;
-            transform.parent.parent.GetComponent<FishAgent>().enabled = true;
-            transform.parent.Find("body").gameObject.SetActive(true);
-        }
-    }
-
 }
