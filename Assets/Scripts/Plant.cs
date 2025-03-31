@@ -14,6 +14,7 @@ public class Plant : MonoBehaviour
     [SerializeField] private float dieTime = 5f;
 
     private Queue<Transform> growingQ;
+    private EnvObservator envObservator;
 
     void Start()
     {
@@ -25,6 +26,8 @@ public class Plant : MonoBehaviour
         child.position = transform.position;
 
         growingQ.Enqueue(child);
+
+        envObservator = FindObjectOfType<EnvObservator>();
     }
 
 
@@ -39,6 +42,7 @@ public class Plant : MonoBehaviour
             }
         } else {
            if (growthTimer > dieTime) {
+                envObservator.AddFoodToList(Instantiate(food, transform.position, Quaternion.identity).transform);
                 Destroy(gameObject);
             }
         }
