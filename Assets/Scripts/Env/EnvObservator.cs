@@ -37,15 +37,18 @@ public class EnvObservator : MonoBehaviour
     }
 
     public void AddFishObservations(VectorSensor sensor, Vector2 fishPos) {
-        for(int i = 0; i < maxFishCount; i++){
-            if (i < otherFish.Count && otherFish[i] != null && otherFish[i].gameObject != null) {
-                sensor.AddObservation(otherFish[i].localPosition.x);
-                sensor.AddObservation(otherFish[i].localPosition.y);
-            } else {
-                sensor.AddObservation(0);
-                sensor.AddObservation(0);
-            }
-        }
+        // for(int i = 0; i < maxFishCount; i++){
+        //     if (i < otherFish.Count && otherFish[i] != null && otherFish[i].gameObject != null) {
+        //         sensor.AddObservation(otherFish[i].localPosition.x);
+        //         sensor.AddObservation(otherFish[i].localPosition.y);
+        //     } else {
+        //         sensor.AddObservation(0);
+        //         sensor.AddObservation(0);
+        //     }
+        // }
+
+        sensor.AddObservation(0);
+        sensor.AddObservation(0);
     }
 
     public void AddFoodToList(Transform _food) {

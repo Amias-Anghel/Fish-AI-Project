@@ -10,7 +10,6 @@ public class FishHead : MonoBehaviour
     {
         if (collision.TryGetComponent<Food>(out Food food)) {
             fishAgent.AddReward(1f);
-            fishAgent.WaterColor(true, Color.blue);
             fishAgent.envObservator.RemoveFood(food.transform);
         }
 
@@ -21,7 +20,7 @@ public class FishHead : MonoBehaviour
         }
     }
 
-    private void OCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall")) {
             fishAgent.AddReward(-0.05f);
