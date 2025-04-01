@@ -37,7 +37,8 @@ public class FishAgent : Agent
         sensor.AddObservation(health);
         sensor.AddObservation(hunger);
         sensor.AddObservation(stress);
-        sensor.AddObservation(age);
+        // sensor.AddObservation(age);
+        sensor.AddObservation(0);
         
         sensor.AddObservation(transform.localPosition.x);
         sensor.AddObservation(transform.localPosition.y);

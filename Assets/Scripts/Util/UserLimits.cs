@@ -13,4 +13,6 @@ public class UserLimits : MonoBehaviour
         return pos.x >= upleft.position.x && pos.x <= upright.position.x 
             && pos.y >= downleft.position.y && pos.y <= upleft.position.y;
     }
+
+    // TO DO: aquarium limits checks for fish
 }
