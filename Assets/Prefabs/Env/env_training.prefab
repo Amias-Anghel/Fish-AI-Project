@@ -818,7 +818,7 @@ MonoBehaviour:
   - {fileID: 1538906100314109135}
   maxFishCount: 10
   otherFish: []
-  foodTrainingCount: 1
+  foodTrainingCount: 3
   userLimits: {fileID: 2167818657221321362}
 --- !u!1 &8391600258215832609
 GameObject:
@@ -917,7 +917,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.991722
+      value: -38.9
       objectReference: {fileID: 0}
     - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
       propertyPath: m_LocalPosition.y

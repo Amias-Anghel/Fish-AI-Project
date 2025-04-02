@@ -20,13 +20,4 @@ public class FishHead : MonoBehaviour
             fishAgent.EndEpisode();
         }
     }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall")) {
-            fishAgent.AddReward(-1f);
-            fishAgent.EndEpisode();
-        }
-    }
-
 }

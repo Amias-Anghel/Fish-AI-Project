@@ -28,7 +28,7 @@ public class FishAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        transform.position = envObservator.userLimits.GetPositionInAquarium();
+        // transform.position = envObservator.userLimits.GetPositionInAquarium(0.5f);
         envObservator.MoveAllFoodTargets();
 
         age = 0;

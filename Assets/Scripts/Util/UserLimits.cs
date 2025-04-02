@@ -29,8 +29,7 @@ public class UserLimits : MonoBehaviour
             && pos.y >= aq_up.position.y;
     }
 
-    public Vector2 GetPositionInAquarium() {
-        float delay = 1f;
+    public Vector2 GetPositionInAquarium(float delay = 2f) {
         float x = Random.Range(aq_left.position.x + delay, aq_right.position.x - delay);
         float y = Random.Range(aq_down.position.y + delay, aq_up.position.y - delay);
         return new Vector2(x, y);
