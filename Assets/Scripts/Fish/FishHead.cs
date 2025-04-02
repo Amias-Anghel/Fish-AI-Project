@@ -10,21 +10,22 @@ public class FishHead : MonoBehaviour
     {
         if (collision.TryGetComponent<Food>(out Food food)) {
             fishAgent.AddReward(1f);
-            fishAgent.envObservator.RemoveFood(food.transform);
+            // fishAgent.envObservator.RemoveFood(food.transform);
+            fishAgent.envObservator.MoveFoodTarget(food.transform);
+            fishAgent.EndEpisode();
         }
 
         if (collision.CompareTag("Wall")) {
             fishAgent.AddReward(-1f);
-            // fishAgent.WaterColor(false, Color.grey);
-            // fishAgent.EndEpisode();
+            fishAgent.EndEpisode();
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall")) {
-            fishAgent.AddReward(-0.05f);
-            // fishAgent.WaterColor(false, Color.grey);
+            fishAgent.AddReward(-1f);
+            fishAgent.EndEpisode();
         }
     }
 

@@ -37,7 +37,7 @@ public class FoodContainer : MonoBehaviour {
 
     void OnMouseDrag()
     {
-        inLimits = userLimits.IsInLimits(transform.position);
+        inLimits = userLimits.IsInUserLimits(transform.position);
         if (!rotated && inLimits) {
             transform.Rotate(0, 0, 180);
             rotated = true;

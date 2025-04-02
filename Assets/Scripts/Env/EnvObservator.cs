@@ -12,17 +12,20 @@ public class EnvObservator : MonoBehaviour
     [SerializeField] List<Transform> otherFish;
     [SerializeField] int foodTrainingCount = 3;
 
+    [SerializeField] public UserLimits userLimits;
+
     /* Returns true if observations for food position have been added */
     public bool AddFoodObservations(VectorSensor sensor, Vector2 fishPos) {
         if (food.Count < 1) {
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
             return false;
         }
         
-        float minDist = Vector2.Distance(fishPos, food[0].localPosition);
+        float minDist = Mathf.Infinity;
         int index = 0;
-
-        for (int i = 1; i < food.Count; i++) {
-            float dist = Vector2.Distance(fishPos, food[i].localPosition);
+        for (int i = 0; i < food.Count; i++) {
+            float dist = Vector2.Distance(fishPos, food[i].position);
             
             if (dist < minDist) {
                 minDist = dist;
@@ -36,7 +39,7 @@ public class EnvObservator : MonoBehaviour
         return true;
     }
 
-    public void AddFishObservations(VectorSensor sensor, Vector2 fishPos) {
+    public void AddFishObservations(VectorSensor sensor) {
         // for(int i = 0; i < maxFishCount; i++){
         //     if (i < otherFish.Count && otherFish[i] != null && otherFish[i].gameObject != null) {
         //         sensor.AddObservation(otherFish[i].localPosition.x);
@@ -46,9 +49,11 @@ public class EnvObservator : MonoBehaviour
         //         sensor.AddObservation(0);
         //     }
         // }
-
-        sensor.AddObservation(0);
-        sensor.AddObservation(0);
+        for(int i = 0; i < maxFishCount; i++){
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            sensor.AddObservation(false);
+        }
     }
 
     public void AddFoodToList(Transform _food) {
@@ -61,24 +66,14 @@ public class EnvObservator : MonoBehaviour
     }
 
     public void MoveFoodTarget(Transform _food) {
-        _food.localPosition = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
+        _food.position = userLimits.GetPositionInAquarium();
     }
 
-    public void SpawnFood() {
-        MoveAllFoodTargets();
-
-        while (food.Count < foodTrainingCount) {
-            Vector3 pos = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
-            Transform f = Instantiate(foodPrefab, pos, Quaternion.identity).transform;
-            food.Add(f);
-        } 
-    }
-
-    private void MoveAllFoodTargets() {
+    public void MoveAllFoodTargets() {
         foreach(Transform f in food){
             if (f == null) continue;
 
-            f.localPosition = new Vector3(Random.Range(-50f, 50f), Random.Range(-28f, 18f), 0);
+            f.position =  userLimits.GetPositionInAquarium();
         }
     }
 }

@@ -810,7 +810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 28
+    VectorObservationSize: 42
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -846,6 +846,7 @@ MonoBehaviour:
   movementSpeed: 30
   lifeExpentancy: 30
   envObservator: {fileID: 0}
+  head: {fileID: 568355149565627300}
 --- !u!114 &168629565369714687
 MonoBehaviour:
   m_ObjectHideFlags: 0

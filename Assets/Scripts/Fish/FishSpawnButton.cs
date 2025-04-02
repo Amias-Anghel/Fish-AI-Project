@@ -49,7 +49,7 @@ public class FishSpawnButton : MonoBehaviour
     {
         spawnNew = true;
 
-        if (!userLimits.IsInLimits(spawnedFish.transform.position)) {
+        if (!userLimits.IsInUserLimits(spawnedFish.transform.position)) {
             Destroy(spawnedFish);
         }
     }
