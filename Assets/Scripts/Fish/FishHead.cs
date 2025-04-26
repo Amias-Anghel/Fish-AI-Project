@@ -9,15 +9,19 @@ public class FishHead : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Food>(out Food food)) {
-            fishAgent.AddReward(1f);
-            // fishAgent.envObservator.RemoveFood(food.transform);
-            fishAgent.envObservator.MoveFoodTarget(food.transform);
-            fishAgent.EndEpisode();
+            food.IsEaten(fishAgent.envObservator);
+
+            if (fishAgent.isTraining) {
+                fishAgent.AddReward(1f);
+                fishAgent.EndEpisode();
+            }
         }
 
         if (collision.CompareTag("Wall")) {
-            fishAgent.AddReward(-1f);
-            fishAgent.EndEpisode();
+            if (fishAgent.isTraining) {
+                fishAgent.AddReward(-1f);
+                fishAgent.EndEpisode();
+            }
         }
     }
 }

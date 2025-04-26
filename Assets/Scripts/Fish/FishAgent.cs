@@ -7,6 +7,8 @@ using Unity.MLAgents.Sensors;
 
 public class FishAgent : Agent
 {
+    public bool isTraining = true;
+
     [SerializeField] private float movementSpeed = 30f;
     [SerializeField] private float lifeExpentancy = 30f;
     
@@ -18,7 +20,6 @@ public class FishAgent : Agent
     private float health, hunger, stress, age;
 
     private Vector2 swimLocation;
-    private float swimLocationTimer;
 
     void Start()
     {
@@ -52,17 +53,18 @@ public class FishAgent : Agent
         sensor.AddObservation(swimLocation.x);
         sensor.AddObservation(swimLocation.y);
 
-        // food position - 6
+        // food position - 3
         envObservator.AddFoodObservations(sensor, headRelativePos);
-        envObservator.AddPlantFoodObservations(sensor, headRelativePos);
 
         // other fish position - 3 
         envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
 
         // fish parameters that can change - 3
-        sensor.AddObservation(health);
         sensor.AddObservation(hunger);
         sensor.AddObservation(stress);
+        sensor.AddObservation(health);
+
+        // Total: 2 2 3 3 3 = 13
     }
     public override void OnActionReceived(ActionBuffers actions)
     {

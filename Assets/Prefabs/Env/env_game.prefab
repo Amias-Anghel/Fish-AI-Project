@@ -126,6 +126,10 @@ PrefabInstance:
       propertyPath: food.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1651292823180306676, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: otherFish.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3228619433501602588, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       propertyPath: m_Name
       value: fish_red
@@ -144,6 +148,7 @@ PrefabInstance:
     - {fileID: 6252481506041341668, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     - {fileID: 5563093046870952235, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     - {fileID: 3228619433501602588, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+    - {fileID: 7293904010313390827, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1632998068146177611, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       insertIndex: -1

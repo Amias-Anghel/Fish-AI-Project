@@ -10,6 +10,7 @@ public class EnvObservator : MonoBehaviour
     [SerializeField] List<Transform> plantFood;
     [SerializeField] List<Transform> otherFish;
 
+    [SerializeField] public EnvController envController;
     [SerializeField] public UserLimits userLimits;
 
     /* Add observations for closest food position (from user) or (0,0)
@@ -36,32 +37,6 @@ public class EnvObservator : MonoBehaviour
         sensor.AddObservation(true);
         sensor.AddObservation(food[index].localPosition.x);
         sensor.AddObservation(food[index].localPosition.y);
-    }
-
-    /* Add observations for closest food position (from plant) or (0,0)
-        and a boolean showing if food exists*/
-    public void AddPlantFoodObservations(VectorSensor sensor, Vector2 fishPos) {
-        if (plantFood.Count < 1) {
-            sensor.AddObservation(false);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            return;
-        }
-        
-        float minDist = Mathf.Infinity;
-        int index = 0;
-        for (int i = 0; i < plantFood.Count; i++) {
-            float dist = Vector2.Distance(fishPos, plantFood[i].position);
-            
-            if (dist < minDist) {
-                minDist = dist;
-                index = i;
-            }
-        }
-
-        sensor.AddObservation(true);
-        sensor.AddObservation(plantFood[index].localPosition.x);
-        sensor.AddObservation(plantFood[index].localPosition.y);
     }
 
     /* Add observations for closest fish position or (0,0)
