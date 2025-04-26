@@ -800,7 +800,6 @@ Transform:
   - {fileID: 1978613524231686295}
   - {fileID: 145895310154915149}
   - {fileID: 6215455218524882665}
-  - {fileID: 1697367624606797631}
   - {fileID: 5739141878439505869}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -818,7 +817,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food:
   - {fileID: 1538906100314109135}
-  - {fileID: 1697367624606797631}
   - {fileID: 5739141878439505869}
   plantFood: []
   otherFish:
@@ -986,72 +984,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
   m_PrefabInstance: {fileID: 135652467698535443}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &231063597073774563
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1632998068146177611}
-    m_Modifications:
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 27.281483
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 11.899261
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5536609036237260088, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: m_Name
-      value: food (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8950670193962243351, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-      propertyPath: userLimits
-      value: 
-      objectReference: {fileID: 2167818657221321362}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
---- !u!4 &1697367624606797631 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1493688481316403420, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-  m_PrefabInstance: {fileID: 231063597073774563}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6009429957415709175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1060,6 +992,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1632998068146177611}
     m_Modifications:
+    - target: {fileID: 3934304249014874818, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
+      propertyPath: isTraining
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3934304249014874818, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
       propertyPath: waterColor
       value: 

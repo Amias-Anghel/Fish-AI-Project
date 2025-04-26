@@ -109,14 +109,16 @@ public class FishAgent : Agent
             swimLocationTimer = 0;
             swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
 
-            // AddReward();
+            // Debug.Log("swim reward! " + (1-hunger));
+            AddReward(Mathf.Pow(1 - hunger, 2));
         }
 
     }
 
     public void Eat() {
         if (isTraining) {
-            AddReward(hunger);
+            AddReward(Mathf.Pow(hunger, 2));
+            // Debug.Log("food reward! " + hunger);
             // EndEpisode();
         }
 
