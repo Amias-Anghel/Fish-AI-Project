@@ -457,7 +457,7 @@ MonoBehaviour:
   envObservator: {fileID: 1710144416}
   water: {fileID: 1625132552}
   cleanWater: {r: 0.61960787, g: 0.9725491, b: 1, a: 1}
-  dirtyWater: {r: 0.28635636, g: 0.5188679, b: 0.31348267, a: 1}
+  dirtyWater: {r: 0.29076183, g: 0.6226415, b: 0.4928429, a: 1}
 --- !u!4 &1722835421
 Transform:
   m_ObjectHideFlags: 0
@@ -725,7 +725,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2905836569268514659, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}

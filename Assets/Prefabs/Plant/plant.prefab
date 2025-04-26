@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plant_food: {fileID: 1244566841720107997, guid: e698b63a24dad934b8aa8efdb2453770, type: 3}
   plant_part: {fileID: 1244566841720107997, guid: db9366d32ca328448a747213240185d3, type: 3}
+  plant_dead: {fileID: 1244566841720107997, guid: 0e0d2082f9b23ab4090610144018f8b5, type: 3}
   growTime: 3
   dieTime: 10
