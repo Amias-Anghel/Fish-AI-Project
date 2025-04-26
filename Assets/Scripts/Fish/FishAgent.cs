@@ -17,7 +17,8 @@ public class FishAgent : Agent
     [SerializeField] public EnvObservator envObservator;
     [SerializeField] public Transform head;
 
-    private float health, hunger, stress, age;
+    private float health, stress, age;
+    private float hunger;
 
     private Vector2 swimLocation;
     private float swimLocationTimer;
@@ -35,7 +36,7 @@ public class FishAgent : Agent
 
         age = 0;
         health = 0;
-        hunger = 0;
+        hunger = 1;
         stress = 0;
         // swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
     }
@@ -97,25 +98,51 @@ public class FishAgent : Agent
         continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 
+    void Update()
+    {
+        hunger += Time.deltaTime * 0.1f;
+        hunger = hunger > 1 ? 1 : hunger;
+
+        swimLocationTimer += Time.deltaTime;
+        Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
+        if (swimLocationTimer >= 1f || Vector2.Distance(swimLocation, headRelativePos) < 0.2f) {
+            swimLocationTimer = 0;
+            swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+
+            // AddReward();
+        }
+
+    }
+
+    public void Eat() {
+        if (isTraining) {
+            AddReward(hunger);
+            // EndEpisode();
+        }
+
+        hunger -= 0.5f;
+        hunger = hunger < 0 ? 0 : hunger;
+    }
+
     // void Update()
     // {
-        // swimLocationTimer += Time.deltaTime;
-        // Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
-        // if (swimLocationTimer >= 1f || Vector2.Distance(swimLocation, headRelativePos) < 0.2f) {
-        //     swimLocationTimer = 0;
-        //     swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
-        // }
+    // swimLocationTimer += Time.deltaTime;
+    // Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
+    // if (swimLocationTimer >= 1f || Vector2.Distance(swimLocation, headRelativePos) < 0.2f) {
+    //     swimLocationTimer = 0;
+    //     swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+    // }
 
-        // // age += Time.deltaTime;
-        // // if (age > lifeExpentancy) {
-        //     // Destroy(gameObject);
-        //     // AddReward(0.01f);
-        //     // EndEpisode();
-        // // }
+    // // age += Time.deltaTime;
+    // // if (age > lifeExpentancy) {
+    //     // Destroy(gameObject);
+    //     // AddReward(0.01f);
+    //     // EndEpisode();
+    // // }
 
-        // if (!envObservator.userLimits.IsInAquariumLimits(transform.position)) {
-        //     transform.position = envObservator.userLimits.GetPositionInAquarium();
-        // }
+    // if (!envObservator.userLimits.IsInAquariumLimits(transform.position)) {
+    //     transform.position = envObservator.userLimits.GetPositionInAquarium();
+    // }
     // }
 
     private void FlipAndRotate() {

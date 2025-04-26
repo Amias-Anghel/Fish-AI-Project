@@ -16,7 +16,7 @@ public class Food : MonoBehaviour, IFood
         }
         rb = GetComponent<Rigidbody2D>();
 
-        if (!simulateFall) {
+        if (!simulateFall && rb != null) {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
