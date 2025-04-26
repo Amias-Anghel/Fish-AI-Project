@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class EnvObservator : MonoBehaviour
 {
-    [SerializeField] GameObject foodPrefab;
     [SerializeField] List<Transform> food;
-    [SerializeField] int maxFishCount = 10;
+    [SerializeField] List<Transform> plantFood;
     [SerializeField] List<Transform> otherFish;
-    [SerializeField] int foodTrainingCount = 3;
 
     [SerializeField] public UserLimits userLimits;
 
-    /* Returns true if observations for food position have been added */
-    public bool AddFoodObservations(VectorSensor sensor, Vector2 fishPos) {
+    /* Add observations for closest food position (from user) or (0,0)
+        and a boolean showing if food exists*/
+    public void AddFoodObservations(VectorSensor sensor, Vector2 fishPos) {
         if (food.Count < 1) {
+            sensor.AddObservation(false);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
-            return false;
+            return;
         }
         
         float minDist = Mathf.Infinity;
@@ -33,27 +33,62 @@ public class EnvObservator : MonoBehaviour
             }
         }
 
+        sensor.AddObservation(true);
         sensor.AddObservation(food[index].localPosition.x);
         sensor.AddObservation(food[index].localPosition.y);
-
-        return true;
     }
 
-    public void AddFishObservations(VectorSensor sensor) {
-        // for(int i = 0; i < maxFishCount; i++){
-        //     if (i < otherFish.Count && otherFish[i] != null && otherFish[i].gameObject != null) {
-        //         sensor.AddObservation(otherFish[i].localPosition.x);
-        //         sensor.AddObservation(otherFish[i].localPosition.y);
-        //     } else {
-        //         sensor.AddObservation(0);
-        //         sensor.AddObservation(0);
-        //     }
-        // }
-        for(int i = 0; i < maxFishCount; i++){
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
+    /* Add observations for closest food position (from plant) or (0,0)
+        and a boolean showing if food exists*/
+    public void AddPlantFoodObservations(VectorSensor sensor, Vector2 fishPos) {
+        if (plantFood.Count < 1) {
             sensor.AddObservation(false);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            return;
         }
+        
+        float minDist = Mathf.Infinity;
+        int index = 0;
+        for (int i = 0; i < plantFood.Count; i++) {
+            float dist = Vector2.Distance(fishPos, plantFood[i].position);
+            
+            if (dist < minDist) {
+                minDist = dist;
+                index = i;
+            }
+        }
+
+        sensor.AddObservation(true);
+        sensor.AddObservation(plantFood[index].localPosition.x);
+        sensor.AddObservation(plantFood[index].localPosition.y);
+    }
+
+    /* Add observations for closest fish position or (0,0)
+        and a boolean showing if fish exists*/
+    public void AddFishObservations(VectorSensor sensor, GameObject fish, Vector2 fishPos) {
+        if (otherFish.Count < 2) {
+            sensor.AddObservation(false);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+        }
+
+        float minDist = Mathf.Infinity;
+        int index = 0;
+        for (int i = 0; i < otherFish.Count; i++) {
+            if (otherFish[i] == fish) continue;
+
+            float dist = Vector2.Distance(fishPos, otherFish[i].position);
+            
+            if (dist < minDist) {
+                minDist = dist;
+                index = i;
+            }
+        }
+
+        sensor.AddObservation(otherFish[index].localPosition.x);
+        sensor.AddObservation(otherFish[index].localPosition.y);
+        sensor.AddObservation(false);
     }
 
     public void AddFoodToList(Transform _food) {
@@ -62,7 +97,6 @@ public class EnvObservator : MonoBehaviour
 
     public void RemoveFood(Transform _food) {
         food.Remove(_food);
-        Destroy(_food.gameObject);
     }
 
     public void MoveFoodTarget(Transform _food) {

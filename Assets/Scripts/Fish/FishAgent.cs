@@ -39,7 +39,7 @@ public class FishAgent : Agent
     }
 
     public override void CollectObservations(VectorSensor sensor)
-    {
+    { 
         // fish position - 2
         // sensor.AddObservation(transform.localPosition.x);
         // sensor.AddObservation(transform.localPosition.y);
@@ -52,19 +52,17 @@ public class FishAgent : Agent
         sensor.AddObservation(swimLocation.x);
         sensor.AddObservation(swimLocation.y);
 
-        // food position - 3
-        bool foodNearby = envObservator.AddFoodObservations(sensor, headRelativePos);
-        sensor.AddObservation(foodNearby);
+        // food position - 6
+        envObservator.AddFoodObservations(sensor, headRelativePos);
+        envObservator.AddPlantFoodObservations(sensor, headRelativePos);
 
-        // other fish position - 30 (10 max x 3 - pos + exists)
-        envObservator.AddFishObservations(sensor);
+        // other fish position - 3 
+        envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
 
-        // fish parameters that can change - 5
+        // fish parameters that can change - 3
         sensor.AddObservation(health);
         sensor.AddObservation(hunger);
         sensor.AddObservation(stress);
-        sensor.AddObservation(movementSpeed);
-        sensor.AddObservation(age);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {

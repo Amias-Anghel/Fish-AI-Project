@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef25e2011c0564948868b8a0f66771fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: {fileID: 5536609036237260088, guid: 8a48410c051ed14468b2e6dd7064193c, type: 3}
-  plat_part: {fileID: 1244566841720107997, guid: db9366d32ca328448a747213240185d3, type: 3}
+  plant_food: {fileID: 1244566841720107997, guid: e698b63a24dad934b8aa8efdb2453770, type: 3}
+  plant_part: {fileID: 1244566841720107997, guid: db9366d32ca328448a747213240185d3, type: 3}
   growTime: 3
-  maxHeight: 10
   dieTime: 10
