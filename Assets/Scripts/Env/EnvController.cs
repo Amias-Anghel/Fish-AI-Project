@@ -18,6 +18,8 @@ public class EnvController : MonoBehaviour
 
         Color waterColor = Color.Lerp(dirtyWater, cleanWater, waterCleanLevel);
         water.color = waterColor;
+
+        Debug.Log("Water cleaness: " + waterCleanLevel);
     }
 
     public void CleanWater() {
@@ -36,6 +38,10 @@ public class EnvController : MonoBehaviour
     public void ClearWater(float clearFactor) {
         waterCleanLevel += clearFactor;
         waterCleanLevel = waterCleanLevel > 1 ? 1 : waterCleanLevel;
+    }
+
+    public float GetWaterCleaness() {
+        return waterCleanLevel;
     }
 
 }

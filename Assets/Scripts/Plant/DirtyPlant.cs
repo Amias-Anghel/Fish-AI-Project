@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirtyPlant : MonoBehaviour
+public class DirtyPlant : MonoBehaviour, IDirty
 {
     private EnvController envController;
     private float dirtiness = 0.0001f;
@@ -15,5 +15,6 @@ public class DirtyPlant : MonoBehaviour
 
     public void IsCleaned() {
         envController.SpeedDownDirtyWater(dirtiness);
+        Destroy(gameObject);
     }
 }
