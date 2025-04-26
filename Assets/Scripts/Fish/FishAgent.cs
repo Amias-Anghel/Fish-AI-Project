@@ -20,6 +20,7 @@ public class FishAgent : Agent
     private float health, hunger, stress, age;
 
     private Vector2 swimLocation;
+    private float swimLocationTimer;
 
     void Start()
     {
@@ -56,15 +57,16 @@ public class FishAgent : Agent
         // food position - 3
         envObservator.AddFoodObservations(sensor, headRelativePos);
 
-        // other fish position - 3 
-        envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
+        // target fish position - 3 -- only if should attack decision is made
+        // to add at stress training 
+        // envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
 
         // fish parameters that can change - 3
         sensor.AddObservation(hunger);
         sensor.AddObservation(stress);
         sensor.AddObservation(health);
 
-        // Total: 2 2 3 3 3 = 13
+        // Total: 2 2 3 3 = 10
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -76,6 +78,16 @@ public class FishAgent : Agent
 
         if (rb.velocity.magnitude > 0.1f)
             FlipAndRotate();
+
+        // Attack decision (discrete)
+        bool shouldAttack = actions.DiscreteActions[0] == 1;
+
+        if (shouldAttack)
+        {
+            // debug attack
+            // if attacking, send as food destination the location of closest fish
+            // to do after food training, together with stress training
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)

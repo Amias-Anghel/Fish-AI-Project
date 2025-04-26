@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Food : MonoBehaviour, IFood
 {
-    public bool training = false;
     public bool simulateFall = false;
     [SerializeField] private UserLimits userLimits = null;
     private Rigidbody2D rb;
@@ -16,9 +15,13 @@ public class Food : MonoBehaviour, IFood
             userLimits = FindObjectOfType<UserLimits>();
         }
         rb = GetComponent<Rigidbody2D>();
+
+        if (!simulateFall) {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
     }
 
-    public void IsEaten(EnvObservator envObservator)
+    public void IsEaten(EnvObservator envObservator, bool training)
     {
         if (training) {
             envObservator.MoveFoodTarget(transform);

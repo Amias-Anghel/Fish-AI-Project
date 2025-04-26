@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IFood
 {
-    public void IsEaten(EnvObservator envObservator);
+    public void IsEaten(EnvObservator envObservator, bool training);
 }

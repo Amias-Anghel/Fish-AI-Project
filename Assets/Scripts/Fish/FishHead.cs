@@ -9,7 +9,7 @@ public class FishHead : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Food>(out Food food)) {
-            food.IsEaten(fishAgent.envObservator);
+            food.IsEaten(fishAgent.envObservator, fishAgent.isTraining);
 
             if (fishAgent.isTraining) {
                 fishAgent.AddReward(1f);

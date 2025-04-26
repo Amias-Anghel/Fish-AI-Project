@@ -810,12 +810,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 42
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 10
+    NumStackedVectorObservations: 8
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 
-    VectorActionSize: 02000000
+      BranchSizes: 02000000
+    VectorActionSize: 
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -843,6 +843,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
+  isTraining: 1
   movementSpeed: 30
   lifeExpentancy: 30
   envObservator: {fileID: 0}
