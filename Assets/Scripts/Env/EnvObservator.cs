@@ -46,6 +46,7 @@ public class EnvObservator : MonoBehaviour
             sensor.AddObservation(false);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
+            return;
         }
 
         float minDist = Mathf.Infinity;
@@ -61,9 +62,9 @@ public class EnvObservator : MonoBehaviour
             }
         }
 
+        sensor.AddObservation(true);
         sensor.AddObservation(otherFish[index].localPosition.x);
         sensor.AddObservation(otherFish[index].localPosition.y);
-        sensor.AddObservation(false);
     }
 
     public void AddFoodToList(Transform _food) {

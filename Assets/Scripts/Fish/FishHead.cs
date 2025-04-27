@@ -10,14 +10,13 @@ public class FishHead : MonoBehaviour
     {
         if (collision.TryGetComponent<Food>(out Food food)) {
             food.IsEaten(fishAgent.envObservator, fishAgent.isTraining);
-
             fishAgent.Eat();
         }
 
         if (collision.CompareTag("Wall")) {
             if (fishAgent.isTraining) {
                 fishAgent.AddReward(-1f);
-                // fishAgent.EndEpisode();
+                fishAgent.EndEpisode();
             }
         }
     }

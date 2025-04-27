@@ -31,14 +31,13 @@ public class FishAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        // transform.position = envObservator.userLimits.GetPositionInAquarium(0.5f);
         envObservator.MoveAllFoodTargets();
 
         age = 0;
         health = 0;
-        hunger = 1;
+        // hunger = 1;
+        hunger = Random.Range(0f, 1f);
         stress = 0;
-        // swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -100,52 +99,69 @@ public class FishAgent : Agent
 
     void Update()
     {
+        // hunger
         hunger += Time.deltaTime * 0.1f;
         hunger = hunger > 1 ? 1 : hunger;
 
-        swimLocationTimer += Time.deltaTime;
-        Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
-        if (swimLocationTimer >= 1f || Vector2.Distance(swimLocation, headRelativePos) < 0.2f) {
-            swimLocationTimer = 0;
-            swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+        // swiming
+        CheckSwimPosition();
+        AddReward(-0.001f);
 
-            // Debug.Log("swim reward! " + (1-hunger));
-            AddReward(Mathf.Pow(1 - hunger, 2));
-        }
+        // stress
+        ComputeStress();
+    }
 
+    private void ComputeStress() {
+        float evnwater = envObservator.envController.GetWaterCleaness();
+        float hungerWeight = 0.55f;
+        float waterWeight = 0.45f;
+        float stress_ = Mathf.Clamp01((hunger * hungerWeight) + ((1 - evnwater) * waterWeight));
+        // Debug.Log("stress: " + stress_ + " hunger: " + hunger + " water: " + evnwater);
     }
 
     public void Eat() {
         if (isTraining) {
-            AddReward(Mathf.Pow(hunger, 2));
+            // AddReward(Mathf.Pow(hunger, 2));
+            AddReward(1f);
             // Debug.Log("food reward! " + hunger);
-            // EndEpisode();
+            EndEpisode();
         }
 
         hunger -= 0.5f;
         hunger = hunger < 0 ? 0 : hunger;
     }
 
-    // void Update()
-    // {
-    // swimLocationTimer += Time.deltaTime;
-    // Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
-    // if (swimLocationTimer >= 1f || Vector2.Distance(swimLocation, headRelativePos) < 0.2f) {
-    //     swimLocationTimer = 0;
-    //     swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
-    // }
+    private void CheckSwimPosition() {
+        swimLocationTimer += Time.deltaTime;
+        Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
 
-    // // age += Time.deltaTime;
-    // // if (age > lifeExpentancy) {
-    //     // Destroy(gameObject);
-    //     // AddReward(0.01f);
-    //     // EndEpisode();
-    // // }
+        float swimDestDist = 10f;
+        float distToDest = Vector2.Distance(swimLocation, headRelativePos);
+        // Debug.Log(distToDest);
 
-    // if (!envObservator.userLimits.IsInAquariumLimits(transform.position)) {
-    //     transform.position = envObservator.userLimits.GetPositionInAquarium();
-    // }
-    // }
+        if (distToDest < swimDestDist) {
+            if (!foodExists) {
+                AddReward(1f);
+                EndEpisode();
+            } else {
+                AddReward(Mathf.Pow(1 - hunger, 2));
+            }
+        }
+
+        if (swimLocationTimer >= 20f || distToDest < swimDestDist) {
+            swimLocationTimer = 0;
+            swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+        }
+    }
+
+    private bool foodExists;
+    public void TrainingFoodExists(bool exists) {
+        foodExists = exists;
+    }
+
+    public Vector2 TrainingGetSwimPos() {
+        return swimLocation;
+    }
 
     private void FlipAndRotate() {
         Vector2 direction = rb.velocity.normalized;
