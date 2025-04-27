@@ -120,10 +120,10 @@ public class FishAgent : Agent
 
     public void Eat() {
         if (isTraining) {
-            // AddReward(Mathf.Pow(hunger, 2));
-            AddReward(1f);
+            AddReward(Mathf.Pow(hunger, 2));
+            // AddReward(1f);
             // Debug.Log("food reward! " + hunger);
-            EndEpisode();
+            // EndEpisode();
         }
 
         hunger -= 0.5f;
@@ -141,8 +141,8 @@ public class FishAgent : Agent
         Debug.Log(foodExists);
         if (distToDest < swimDestDist) {
             if (!foodExists) {
-                AddReward(1f);
-                EndEpisode();
+                AddReward(0.5f);
+            //     EndEpisode();
             } else {
                 AddReward(Mathf.Pow(1 - hunger, 2));
             }
@@ -161,6 +161,10 @@ public class FishAgent : Agent
 
     public Vector2 TrainingGetSwimPos() {
         return swimLocation;
+    }
+
+    public float GetHunger() {
+        return hunger;
     }
 
     private void FlipAndRotate() {
