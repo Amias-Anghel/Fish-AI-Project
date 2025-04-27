@@ -22,7 +22,7 @@ public class TrainingUserSimulator : MonoBehaviour
 
     void Update()
     {
-        GiveFoodDecision();
+        // GiveFoodDecision();
         ShowSwimLocationFish0();
     }
 
