@@ -35,14 +35,14 @@ public class TrainingUserSimulator : MonoBehaviour
     }
 
     private void SwitchFoodState() {
-        bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.5f;
+        bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.2f;
 
         if (giveFood && !food.activeSelf) {
             food.SetActive(true);
             envObservator.AddFoodToList(food.transform);
 
             foreach(FishAgent f in fish) {
-                f.TrainingFoodExists(true);
+                f.TrainingFoodExists(giveFood);
             }
 
         } else if (!giveFood && food.activeSelf){
@@ -50,18 +50,10 @@ public class TrainingUserSimulator : MonoBehaviour
             food.SetActive(false);
 
             foreach(FishAgent f in fish) {
-                f.TrainingFoodExists(false);
+                f.TrainingFoodExists(giveFood);
             }
         }
 
-        // if (food.activeSelf){
-        //     envObservator.RemoveFood(food.transform);
-        //     food.SetActive(false);
-
-        //     foreach(FishAgent f in fish) {
-        //         f.TrainingFoodExists(false);
-        //     }
-        // }
     }
 
     // Show where fish swim pos is

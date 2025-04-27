@@ -35,8 +35,7 @@ public class FishAgent : Agent
 
         age = 0;
         health = 0;
-        // hunger = 1;
-        hunger = Random.Range(0f, 1f);
+        hunger = 1;
         stress = 0;
     }
 
@@ -139,6 +138,7 @@ public class FishAgent : Agent
         float distToDest = Vector2.Distance(swimLocation, headRelativePos);
         // Debug.Log(distToDest);
 
+        Debug.Log(foodExists);
         if (distToDest < swimDestDist) {
             if (!foodExists) {
                 AddReward(1f);
@@ -154,7 +154,7 @@ public class FishAgent : Agent
         }
     }
 
-    private bool foodExists;
+    private bool foodExists = true;
     public void TrainingFoodExists(bool exists) {
         foodExists = exists;
     }
