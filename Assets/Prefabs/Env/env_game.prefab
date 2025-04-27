@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6612180273164497859}
     m_Modifications:
+    - target: {fileID: 4348872004584228591, guid: d988693d889ad30439a9a2f8ba4c1b82, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7371755764329129864, guid: d988693d889ad30439a9a2f8ba4c1b82, type: 3}
       propertyPath: m_Name
       value: waterSplash
@@ -127,12 +131,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1651292823180306676, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: otherFish.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651292823180306676, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       propertyPath: otherFish.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3228619433501602588, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       propertyPath: m_Name
       value: fish_red
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966166957013825450, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: fishAgent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081444754618247931, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081444754618247931, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6353017601322050387, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       propertyPath: m_BehaviorType
@@ -142,19 +162,64 @@ PrefabInstance:
       propertyPath: m_Name
       value: env_game
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8377020268353746379, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8377020268353746379, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4806423276573050810, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2891053322950271857, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     - {fileID: 6252481506041341668, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     - {fileID: 5563093046870952235, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     - {fileID: 3228619433501602588, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     - {fileID: 7293904010313390827, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+    - {fileID: 6593424639973189249, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1632998068146177611, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7199800607196468619}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 923404684975209763, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2598333210836517440}
   m_SourcePrefab: {fileID: 100100000, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+--- !u!114 &685078699888296482 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4966166957013825450, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+  m_PrefabInstance: {fileID: 5578479977374954888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0409a5c158db04f489504c79a2fe75c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4736144483801942187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 923404684975209763, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+  m_PrefabInstance: {fileID: 5578479977374954888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2598333210836517440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4736144483801942187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ca8bf2521fa3f4cb6febac0b965aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishStatsVisual: {fileID: 685078699888296482}
+  fishLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &6612180273164497859 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1632998068146177611, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}

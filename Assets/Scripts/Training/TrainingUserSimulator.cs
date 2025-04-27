@@ -16,13 +16,16 @@ public class TrainingUserSimulator : MonoBehaviour
 
     void Start()
     {
-        switchTime = UnityEngine.Random.Range(0.1f, 0.5f);
+        switchTime = UnityEngine.Random.Range(10f, 20f);
         switchTimer = switchTime;
+        waterCleanTime = UnityEngine.Random.Range(1f, 50f);
+        waterCleanTimer = waterCleanTime;
     }
 
     void Update()
     {
         // GiveFoodDecision();
+        CheckWaterCleanTime();
         ShowSwimLocationFish0();
     }
 
@@ -54,6 +57,21 @@ public class TrainingUserSimulator : MonoBehaviour
             }
         }
 
+    }
+
+    // controll water cleaness
+    private float waterCleanTimer, waterCleanTime;
+    private void CheckWaterCleanTime() {
+        if (Time.time >= waterCleanTimer) {
+            waterCleanTime = UnityEngine.Random.Range(1f, 50f);
+            waterCleanTimer = Time.time + waterCleanTime + Time.deltaTime;
+            ClearWater();
+        }
+    }
+
+    private void ClearWater() {
+        float clear = UnityEngine.Random.Range(0f, 1f);
+        envObservator.envController.ClearWater(clear);
     }
 
     // Show where fish swim pos is

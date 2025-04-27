@@ -31,12 +31,14 @@ public class FishAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        envObservator.MoveAllFoodTargets();
+        if (isTraining) {
+            envObservator.MoveAllFoodTargets();
 
-        age = 0;
-        health = 0;
-        hunger = Random.Range(0f, 1f);
-        stress = 0;
+            age = 0;
+            health = 0;
+            hunger = Random.Range(0f, 1f);
+            ComputeStress();
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -86,6 +88,7 @@ public class FishAgent : Agent
             // debug attack
             // if attacking, send as food destination the location of closest fish
             // to do after food training, together with stress training
+            // AddReward((2 * stress - 1) * 0.001f);
         }
     }
 
@@ -99,8 +102,8 @@ public class FishAgent : Agent
     void Update()
     {
         // hunger
-        // hunger += Time.deltaTime * 0.01f;
-        // hunger = hunger > 1 ? 1 : hunger;
+        hunger += Time.deltaTime * 0.01f;
+        hunger = hunger > 1 ? 1 : hunger;
 
         // swiming
         CheckSwimPosition();
@@ -114,7 +117,7 @@ public class FishAgent : Agent
         float evnwater = envObservator.envController.GetWaterCleaness();
         float hungerWeight = 0.55f;
         float waterWeight = 0.45f;
-        float stress_ = Mathf.Clamp01((hunger * hungerWeight) + ((1 - evnwater) * waterWeight));
+        stress = Mathf.Clamp01((hunger * hungerWeight) + ((1 - evnwater) * waterWeight));
         // Debug.Log("stress: " + stress_ + " hunger: " + hunger + " water: " + evnwater);
     }
 
@@ -160,6 +163,11 @@ public class FishAgent : Agent
     public float GetHunger() {
         return hunger;
     }
+
+    public float GetStress() {
+        return stress;
+    }
+
 
     private void FlipAndRotate() {
         Vector2 direction = rb.velocity.normalized;

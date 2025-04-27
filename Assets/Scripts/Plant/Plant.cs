@@ -139,6 +139,7 @@ public class Plant : MonoBehaviour
     private void PlantRezidue(){
         while (dieQ.Count > 0) {
             GameObject part = dieQ.Dequeue();
+            if (part == null) continue;
             Instantiate(plant_dead, part.transform.position, Quaternion.identity);
             Destroy(part);
         }
