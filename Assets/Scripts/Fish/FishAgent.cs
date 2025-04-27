@@ -27,6 +27,8 @@ public class FishAgent : Agent
     {
         rb = GetComponent<Rigidbody2D>();
         swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+
+        hunger = Random.Range(0f, 1f);
     }
 
     public override void OnEpisodeBegin()

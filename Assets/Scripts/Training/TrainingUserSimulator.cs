@@ -24,7 +24,7 @@ public class TrainingUserSimulator : MonoBehaviour
 
     void Update()
     {
-        // GiveFoodDecision();
+        GiveFoodDecision();
         CheckWaterCleanTime();
         ShowSwimLocationFish0();
     }
