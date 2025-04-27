@@ -35,7 +35,7 @@ public class FishAgent : Agent
 
         age = 0;
         health = 0;
-        hunger = 1;
+        hunger = Random.Range(0f, 1f);
         stress = 0;
     }
 
@@ -99,8 +99,8 @@ public class FishAgent : Agent
     void Update()
     {
         // hunger
-        hunger += Time.deltaTime * 0.1f;
-        hunger = hunger > 1 ? 1 : hunger;
+        // hunger += Time.deltaTime * 0.01f;
+        // hunger = hunger > 1 ? 1 : hunger;
 
         // swiming
         CheckSwimPosition();
@@ -120,10 +120,13 @@ public class FishAgent : Agent
 
     public void Eat() {
         if (isTraining) {
-            AddReward(Mathf.Pow(hunger, 2));
-            // AddReward(1f);
+            // if (hunger < 0.4f) {
+            //     AddReward(-1f);
+            // } else {
+                AddReward(Mathf.Pow(hunger, 2));
+            // }
             // Debug.Log("food reward! " + hunger);
-            // EndEpisode();
+            EndEpisode();
         }
 
         hunger -= 0.5f;
@@ -136,15 +139,17 @@ public class FishAgent : Agent
 
         float swimDestDist = 10f;
         float distToDest = Vector2.Distance(swimLocation, headRelativePos);
-        // Debug.Log(distToDest);
-
-        Debug.Log(foodExists);
+   
         if (distToDest < swimDestDist) {
-            if (!foodExists) {
-                AddReward(0.5f);
-            //     EndEpisode();
-            } else {
-                AddReward(Mathf.Pow(1 - hunger, 2));
+            if (isTraining){
+                if (!foodExists) {
+                    // AddReward(0.3f);
+                    AddReward(1f);
+                    EndEpisode();
+                } else {
+                    AddReward(Mathf.Pow(1 - hunger, 2));
+                    EndEpisode();
+                }
             }
         }
 
