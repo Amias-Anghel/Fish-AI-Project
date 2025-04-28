@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a16b93a76fbf64fb33399b007275e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spoiledFood: {fileID: 1244566841720107997, guid: 10254cca670b1b040ac3bcd1b59f1878, type: 3}
+  simulateFall: 1
+  userLimits: {fileID: 0}
 --- !u!61 &2241874823566351695
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,7 +162,7 @@ Rigidbody2D:
   m_Mass: 0.3
   m_LinearDrag: 0.7
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -170,4 +173,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
