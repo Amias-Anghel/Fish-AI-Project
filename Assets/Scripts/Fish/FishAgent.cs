@@ -17,11 +17,24 @@ public class FishAgent : Agent
     [SerializeField] public EnvObservator envObservator;
     [SerializeField] public Transform head;
 
+    // stats
     private float health, stress, age;
     private float hunger;
 
+    // swiming around
     private Vector2 swimLocation;
     private float swimLocationTimer;
+
+    /* 
+        sum((1-goalProcent) * stepRewardMultiplier) + finalreward = 1
+        finalreward = 0.56, stepRewardMultiplier = 0.1
+    */
+    float swimGoalProcent = 0.8f;
+    float stepRewardMultiplier = 0.1f;
+    float stashedReward = 0f;
+    float maxDist = 150;
+
+    // pooping
 
     [SerializeField] private GameObject fishPoop;
     float poopTimer;
@@ -45,6 +58,7 @@ public class FishAgent : Agent
             age = 0;
             health = 0;
             hunger = Random.Range(0f, 1f);
+
             ComputeStress();
         }
     }
@@ -152,25 +166,69 @@ public class FishAgent : Agent
 
         float swimDestDist = 5f;
         float distToDest = Vector2.Distance(swimLocation, headRelativePos);
-   
-        if (distToDest < swimDestDist) {
-            if (isTraining){
-                AddReward(1 - hunger);
-                EndEpisode();
+
+
+        if (isTraining){
+            if (foodExists) {
+                if (distToDest < swimDestDist) {
+                    AddReward(1 - hunger);
+                    EndEpisode();
+                }
+            } 
+            else { 
+                // calculate new proximity reward and swimGoalProcent
+                float targetDist = maxDist * swimGoalProcent;
+                if (distToDest < targetDist) {
+                    float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
+                    AddReward(reward);
+                    // Debug.Log("hit reward " + reward + " at procent " + swimGoalProcent);
+                    swimGoalProcent = Mathf.Max(0, swimGoalProcent - 0.1f);
+                }
+
+                if (distToDest < swimDestDist) {
+                    // Debug.Log("reach reward: " + (stashedReward + 0.56) + " from which, stashed: " + stashedReward);
+                    AddReward(0.56f + stashedReward);
+                    EndEpisode();
+                }
             }
         }
 
+        // select new swim location
         if (swimLocationTimer >= 20f || distToDest < swimDestDist) {
             swimLocationTimer = 0;
             swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+            SetSwimGoalData();
         }
+    }
+
+    /* 
+        Sets the stashed reward for proximity to swim goal
+        Sets the swimGoalProcent for next proximity goals
+        Called only on new episode or when goal changes
+    */
+    private void SetSwimGoalData() {
+        swimGoalProcent = 0.8f;
+        stashedReward = 0f;
+
+        Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
+        float distToDest = Vector2.Distance(swimLocation, headRelativePos);
+        float compareDist = maxDist * swimGoalProcent;
+
+        while (distToDest < compareDist && swimGoalProcent > 0) {
+            float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
+            stashedReward += reward;
+            swimGoalProcent = Mathf.Max(0, swimGoalProcent - 0.1f);
+
+            compareDist = maxDist * swimGoalProcent;
+        }
+
+        // Debug.Log("New Episode: stashedReward: " + stashedReward + " procent: " + swimGoalProcent);
     }
 
     private void SetPoopTimer() {
         if (Time.time >= poopTimer && hunger < 0.7) {
             poopTimer = Time.time + Random.Range(20f, 40f);
             poopCounter = Random.Range(10, 20);
-            // Debug.Log("will poop " + poopCounter);
         }
     }
 
