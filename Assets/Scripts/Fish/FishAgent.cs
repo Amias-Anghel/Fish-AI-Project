@@ -26,12 +26,20 @@ public class FishAgent : Agent
     private float swimLocationTimer;
 
     /* 
+        total reward = 1:
+
         sum((1-goalProcent) * stepRewardMultiplier) + finalreward = 1
-        finalreward = 0.56, stepRewardMultiplier = 0.1
+        goalProcentStep = 0.1f: n = 1 - 4.4x  (n)finalreward = 0.56, (x)stepRewardMultiplier = 0.1
+        goalProcentStep = 0.05f: n = 1 - 8.25x  (n)finalreward = 0.175, (x)stepRewardMultiplier = 0.1
+
+        total reward = 0.7:
+        goalProcentStep = 0.05f: n = 0.7 - 8.25x  (n)finalreward = 0.2875, (x)stepRewardMultiplier = 0.05
     */
-    float swimGoalProcent = 0.8f;
-    float stepRewardMultiplier = 0.1f;
-    float stashedReward = 0f;
+    float swimGoalProcent = 0.8f; // calc goal distance for swim as swimprocent from maxdist
+    float goalProcentStep = 0.05f; // how much the procent lowers per goal reached
+    float stepRewardMultiplier = 0.05f; // goal step reward weight
+    float stashedReward = 0f; // total goal that is already reched from starting position
+    float finalReward = 0.2875f; // reward for reaching swim position
     float maxDist = 150;
 
     // pooping
@@ -182,12 +190,12 @@ public class FishAgent : Agent
                     float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
                     AddReward(reward);
                     // Debug.Log("hit reward " + reward + " at procent " + swimGoalProcent);
-                    swimGoalProcent = Mathf.Max(0, swimGoalProcent - 0.1f);
+                    swimGoalProcent = Mathf.Max(0, swimGoalProcent - goalProcentStep);
                 }
 
                 if (distToDest < swimDestDist) {
                     // Debug.Log("reach reward: " + (stashedReward + 0.56) + " from which, stashed: " + stashedReward);
-                    AddReward(0.56f + stashedReward);
+                    AddReward(finalReward + stashedReward);
                     EndEpisode();
                 }
             }
@@ -217,7 +225,7 @@ public class FishAgent : Agent
         while (distToDest < compareDist && swimGoalProcent > 0) {
             float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
             stashedReward += reward;
-            swimGoalProcent = Mathf.Max(0, swimGoalProcent - 0.1f);
+            swimGoalProcent = Mathf.Max(0, swimGoalProcent - goalProcentStep);
 
             compareDist = maxDist * swimGoalProcent;
         }
