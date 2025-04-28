@@ -23,12 +23,18 @@ public class FishAgent : Agent
     private Vector2 swimLocation;
     private float swimLocationTimer;
 
+    [SerializeField] private GameObject fishPoop;
+    float poopTimer;
+    int poopCounter, spawnFreq;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
 
         hunger = Random.Range(0f, 1f);
+
+        SetPoopTimer();
     }
 
     public override void OnEpisodeBegin()
@@ -103,16 +109,23 @@ public class FishAgent : Agent
 
     void Update()
     {
-        // hunger
-        hunger += Time.deltaTime * 0.01f;
-        hunger = hunger > 1 ? 1 : hunger;
+        if (!isTraining) {
+            // hunger
+            hunger += Time.deltaTime * 0.05f;
+            hunger = hunger > 1 ? 1 : hunger;
+            // stress
+            ComputeStress();
+            // poop
+            Poop();
+        }
 
         // swiming
         CheckSwimPosition();
-        AddReward(-0.001f);
 
-        // stress
-        ComputeStress();
+        if (isTraining) {
+            AddReward(-0.001f);
+        }
+
     }
 
     private void ComputeStress() {
@@ -128,7 +141,7 @@ public class FishAgent : Agent
             AddReward(hunger);
             EndEpisode();
         }
-
+        SetPoopTimer();
         hunger -= 0.5f;
         hunger = hunger < 0 ? 0 : hunger;
     }
@@ -150,6 +163,28 @@ public class FishAgent : Agent
         if (swimLocationTimer >= 20f || distToDest < swimDestDist) {
             swimLocationTimer = 0;
             swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+        }
+    }
+
+    private void SetPoopTimer() {
+        if (Time.time >= poopTimer && hunger < 0.7) {
+            poopTimer = Time.time + Random.Range(20f, 40f);
+            poopCounter = Random.Range(10, 20);
+            // Debug.Log("will poop " + poopCounter);
+        }
+    }
+
+    private void Poop() {
+        // if needs to poop, poop every spawnFreq frames
+        if (poopCounter > 0) {
+            if (spawnFreq == 0) {
+                poopCounter--;
+                Instantiate(fishPoop, transform.position, Quaternion.identity);
+                spawnFreq = 3; 
+            }
+            else {
+                spawnFreq--;
+            }
         }
     }
 

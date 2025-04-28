@@ -72,6 +72,8 @@ public class EnvObservator : MonoBehaviour
     }
 
     public void RemoveFood(Transform _food) {
+        if (!food.Contains(_food)) return;
+        
         food.Remove(_food);
     }
 

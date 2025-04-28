@@ -5,7 +5,7 @@ using UnityEngine;
 public class DirtyPlant : MonoBehaviour, IDirty
 {
     private EnvController envController;
-    private float dirtiness = 0.0001f;
+    [SerializeField] private float dirtiness = 0.0001f;
 
     void Start()
     {

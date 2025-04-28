@@ -120,7 +120,9 @@ public class Plant : MonoBehaviour
                     break;
                 case 'f':
                     if (!userLimits.IsInAquariumLimits(currentPos)) break;
-                    dieQ.Enqueue(Instantiate(plant_food, currentPos, Quaternion.identity));
+                    GameObject food = Instantiate(plant_food, currentPos, Quaternion.identity);
+                    dieQ.Enqueue(food);
+                    envObservator.AddFoodToList(food.transform);
                     break;
                 case 'n':
                     if (!userLimits.IsInAquariumLimits(currentPos)) break;
@@ -140,6 +142,7 @@ public class Plant : MonoBehaviour
         while (dieQ.Count > 0) {
             GameObject part = dieQ.Dequeue();
             if (part == null) continue;
+            envObservator.RemoveFood(part.transform);
             Instantiate(plant_dead, part.transform.position, Quaternion.identity);
             Destroy(part);
         }

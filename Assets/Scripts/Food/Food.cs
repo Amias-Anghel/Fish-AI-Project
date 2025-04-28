@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Food : MonoBehaviour, IFood
 {
+    [SerializeField] private GameObject spoiledFood;
+    float spoilTimer;
+
     public bool simulateFall = false;
     [SerializeField] private UserLimits userLimits = null;
     private Rigidbody2D rb;
@@ -19,6 +22,8 @@ public class Food : MonoBehaviour, IFood
         if (!simulateFall && rb != null) {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
+
+        spoilTimer = Time.time + Random.Range(30f, 60f);
     }
 
     public void IsEaten(EnvObservator envObservator, bool training)
@@ -38,6 +43,13 @@ public class Food : MonoBehaviour, IFood
                 rb.gravityScale = 5f;
             } else {
                 rb.gravityScale = 0.05f;
+            }
+
+            if (Time.time >= spoilTimer) {
+                // spoil
+                FindObjectOfType<EnvObservator>().RemoveFood(transform);
+                Instantiate(spoiledFood, transform.position, Quaternion.identity);
+                Destroy(gameObject);
             }
         }
     }

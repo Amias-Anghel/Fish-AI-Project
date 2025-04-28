@@ -1117,6 +1117,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4122453093815039627, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6612180273164497859, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8
@@ -1158,7 +1162,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7143296130186139628, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6612180273164497859, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
       insertIndex: 0
