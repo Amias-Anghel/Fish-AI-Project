@@ -15,7 +15,7 @@ public class FishHead : MonoBehaviour
 
         if (collision.CompareTag("Wall")) {
             if (fishAgent.isTraining) {
-                fishAgent.AddReward(-1f);
+                // fishAgent.AddReward(-1f);
                 // fishAgent.EndEpisode();
             }
         }
