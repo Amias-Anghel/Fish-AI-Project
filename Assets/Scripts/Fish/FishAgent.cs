@@ -17,7 +17,10 @@ public class FishAgent : Agent
     [SerializeField] public EnvObservator envObservator;
     [SerializeField] public Transform head;
 
+<<<<<<< HEAD
     // stats
+=======
+>>>>>>> main
     private float health, stress, age;
     private float hunger;
 
@@ -25,6 +28,7 @@ public class FishAgent : Agent
     private Vector2 swimLocation;
     private float swimLocationTimer;
 
+<<<<<<< HEAD
     /* 
         total reward = 1:
 
@@ -44,6 +48,8 @@ public class FishAgent : Agent
 
     // pooping
 
+=======
+>>>>>>> main
     [SerializeField] private GameObject fishPoop;
     float poopTimer;
     int poopCounter, spawnFreq;
@@ -66,7 +72,10 @@ public class FishAgent : Agent
             age = 0;
             health = 0;
             hunger = Random.Range(0f, 1f);
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
             ComputeStress();
         }
     }
@@ -174,6 +183,7 @@ public class FishAgent : Agent
 
         float swimDestDist = 5f;
         float distToDest = Vector2.Distance(swimLocation, headRelativePos);
+<<<<<<< HEAD
 
 
         if (isTraining){
@@ -233,10 +243,30 @@ public class FishAgent : Agent
         // Debug.Log("New Episode: stashedReward: " + stashedReward + " procent: " + swimGoalProcent);
     }
 
+=======
+   
+        if (distToDest < swimDestDist) {
+            if (isTraining){
+                AddReward(1 - hunger);
+                EndEpisode();
+            }
+        }
+
+        if (swimLocationTimer >= 20f || distToDest < swimDestDist) {
+            swimLocationTimer = 0;
+            swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+        }
+    }
+
+>>>>>>> main
     private void SetPoopTimer() {
         if (Time.time >= poopTimer && hunger < 0.7) {
             poopTimer = Time.time + Random.Range(20f, 40f);
             poopCounter = Random.Range(10, 20);
+<<<<<<< HEAD
+=======
+            // Debug.Log("will poop " + poopCounter);
+>>>>>>> main
         }
     }
 

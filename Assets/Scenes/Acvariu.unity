@@ -122,6 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1 &18831115
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterCleaness: {fileID: 2019325372}
   envController: {fileID: 317186545}
+=======
+>>>>>>> main
 --- !u!1 &286190959
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +549,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &904410305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1229,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6612180273164497859, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
   m_PrefabInstance: {fileID: 8358032269446332296}
   m_PrefabAsset: {fileID: 0}
+=======
+--- !u!114 &1710144416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6593322533850733948, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
+  m_PrefabInstance: {fileID: 8358032269446332296}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef76e9ef486af148ab2bd77ad5bd305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1710144417 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6612180273164497859, guid: aaa7136164a01044fa9d9ff46201af63, type: 3}
+  m_PrefabInstance: {fileID: 8358032269446332296}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> main
 --- !u!1001 &1961271372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1302,6 +1324,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c36e5b0307fde4d4dae4daab716fcee6, type: 3}
+<<<<<<< HEAD
 --- !u!1 &2019325371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,6 +1453,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2019325371}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> main
 --- !u!1001 &3240803665985360742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1763,4 +1788,7 @@ SceneRoots:
   - {fileID: 4262218285316867840}
   - {fileID: 8705085169955540800}
   - {fileID: 5519717414757939667}
+<<<<<<< HEAD
   - {fileID: 18831120}
+=======
+>>>>>>> main
