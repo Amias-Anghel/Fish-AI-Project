@@ -15,7 +15,7 @@ public class FishAgent : Agent
     private Rigidbody2D rb;
 
     [SerializeField] public EnvObservator envObservator;
-    [SerializeField] public Transform head;
+    [SerializeField] private Transform head;
 
     // stats
     private float health, stress, age;
@@ -283,4 +283,6 @@ public class FishAgent : Agent
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg -90;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
+
+    
 }

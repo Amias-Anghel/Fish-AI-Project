@@ -531,8 +531,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568355149565627300}
-  - component: {fileID: 4400658859963432417}
   - component: {fileID: 6641300490270403879}
+  - component: {fileID: 4400658859963432417}
   - component: {fileID: 8058793404209861326}
   m_Layer: 6
   m_Name: head
@@ -556,6 +556,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7219280773405562706}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6641300490270403879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7868802249703472381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afedffdb93622042bb310fc77ed85cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fish: {fileID: 9199610423061748459}
 --- !u!70 &4400658859963432417
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -591,19 +604,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.03514552, y: 0.4481628}
   m_Size: {x: 4.283935, y: 4.283935}
   m_Direction: 0
---- !u!114 &6641300490270403879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7868802249703472381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afedffdb93622042bb310fc77ed85cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishAgent: {fileID: 3934304249014874818}
 --- !u!61 &8058793404209861326
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -747,6 +747,7 @@ GameObject:
   - component: {fileID: 3934304249014874818}
   - component: {fileID: 168629565369714687}
   - component: {fileID: 7574607177815384583}
+  - component: {fileID: 7505343987622510181}
   m_Layer: 6
   m_Name: fish_red
   m_TagString: Untagged
@@ -843,7 +844,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
-  isTraining: 0
+  isTraining: 1
   movementSpeed: 30
   lifeExpentancy: 30
   envObservator: {fileID: 0}
@@ -879,3 +880,16 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: FoodAgentDemo
   DemonstrationDirectory: Demos
+--- !u!114 &7505343987622510181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199610423061748459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a360090832d86f4e84dded21003d016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishAgent: {fileID: 3934304249014874818}
