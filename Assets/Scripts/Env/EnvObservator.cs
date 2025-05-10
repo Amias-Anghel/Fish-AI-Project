@@ -88,4 +88,10 @@ public class EnvObservator : MonoBehaviour
             f.position =  userLimits.GetPositionInAquarium();
         }
     }
+
+    public void MovePupetFish() {
+        if (otherFish.Count < 2) return;
+        
+        otherFish[1].position = userLimits.GetPositionInAquarium();
+    }
 }

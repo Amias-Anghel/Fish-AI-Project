@@ -64,6 +64,7 @@ public class FishAgent : Agent
     {
         if (isTraining) {
             envObservator.MoveAllFoodTargets();
+            envObservator.MovePupetFish();
 
             age = 0;
             health = 0;
