@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 7505343987622510181}
   m_Layer: 6
   m_Name: fish_red
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -893,3 +893,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishAgent: {fileID: 3934304249014874818}
+  agresivityMaxThreshold: 0.7
+  agresivityMinThreshold: 0.5

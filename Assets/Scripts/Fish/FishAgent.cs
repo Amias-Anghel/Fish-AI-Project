@@ -21,6 +21,8 @@ public class FishAgent : Agent
     private float health, stress, age;
     private float hunger;
 
+    private bool attackDecision;
+
     // swiming around
     private Vector2 swimLocation;
     private float swimLocationTimer;
@@ -111,9 +113,9 @@ public class FishAgent : Agent
             FlipAndRotate();
 
         // Attack decision (discrete)
-        bool shouldAttack = actions.DiscreteActions[0] == 1;
+        attackDecision = actions.DiscreteActions[0] == 1;
 
-        if (shouldAttack)
+        if (attackDecision)
         {
             // debug attack
             // if attacking, send as food destination the location of closest fish
@@ -269,6 +271,18 @@ public class FishAgent : Agent
 
     public float GetStress() {
         return stress;
+    }
+
+    public float GetAge() {
+        return age;
+    }
+
+    public float GetHealth() {
+        return health;
+    }
+
+    public bool GetAttackDecision() {
+        return attackDecision;
     }
 
 
