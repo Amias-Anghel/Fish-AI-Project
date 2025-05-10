@@ -38,7 +38,7 @@ public class TrainingUserSimulator : MonoBehaviour
     }
 
     private void SwitchFoodState() {
-        bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.5f;
+        bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.3f;
 
         if (giveFood && !food.activeSelf) {
             food.SetActive(true);
