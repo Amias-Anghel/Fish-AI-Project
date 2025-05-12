@@ -4,7 +4,6 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-
 public class FishAgent : Agent
 {
     public bool isTraining = true;
@@ -84,16 +83,23 @@ public class FishAgent : Agent
         sensor.AddObservation(headRelativePos.x);
         sensor.AddObservation(headRelativePos.y);
 
+        Debug.Log($"fish local pos: {headRelativePos}");
+
         // swim position - 2
         sensor.AddObservation(swimLocation.x);
         sensor.AddObservation(swimLocation.y);
 
-        // food position - 3
-        envObservator.AddFoodObservations(sensor, headRelativePos);
+        Debug.Log($"swim local pos: {swimLocation}");
 
-        // target fish position - 3 -- only if should attack decision is made
-        // to add at stress training 
-        // envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
+        // if (attackDecision)
+        // {
+            // if attacking, send as food destination the location of closest fish
+            // target fish position - 3 -- only if should attack decision is made
+            // hasTarget = envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
+        // } else {
+            // food position - 3
+            hasTarget = envObservator.AddFoodObservations(sensor, headRelativePos);
+        // }
 
         // fish parameters that can change - 3
         sensor.AddObservation(hunger);
@@ -116,12 +122,25 @@ public class FishAgent : Agent
         // Attack decision (discrete)
         attackDecision = actions.DiscreteActions[0] == 1;
 
+        // AddAttackDecisionReward();
+    }
+
+    private void AddAttackDecisionReward() {
+        // Reward/punish the decision itself
+        float threshold = 0.5f;
         if (attackDecision)
         {
-            // debug attack
-            // if attacking, send as food destination the location of closest fish
-            // to do after food training, together with stress training
-            // AddReward((2 * stress - 1) * 0.001f);
+            if (stress > threshold)
+                AddReward(+0.01f);   // good, it attacked when stressed
+            else
+                AddReward(-0.01f);   // bad, attacked too early
+        }
+        else
+        {
+            if (stress <= threshold)
+                AddReward(+0.005f);  // OK to not attack when calm
+            else
+                AddReward(-0.005f);  // wrong: should have attacked
         }
     }
 
@@ -171,6 +190,7 @@ public class FishAgent : Agent
         hunger = hunger < 0 ? 0 : hunger;
     }
 
+    private bool hasTarget;
     private void CheckSwimPosition() {
         swimLocationTimer += Time.deltaTime;
         Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
@@ -180,13 +200,13 @@ public class FishAgent : Agent
 
 
         if (isTraining){
-            if (foodExists) {
+            if (foodExists || hasTarget) {
                 if (distToDest < swimDestDist) {
                     AddReward(1 - hunger);
                     EndEpisode();
                 }
             } 
-            else { 
+            else  { //if (!attackDecision || !hasTarget)
                 // calculate new proximity reward and swimGoalProcent
                 float targetDist = maxDist * swimGoalProcent;
                 if (distToDest < targetDist) {

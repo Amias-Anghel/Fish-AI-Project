@@ -15,18 +15,18 @@ public class EnvObservator : MonoBehaviour
 
     /* Add observations for closest food position (from user) or (0,0)
         and a boolean showing if food exists*/
-    public void AddFoodObservations(VectorSensor sensor, Vector2 fishPos) {
+    public bool AddFoodObservations(VectorSensor sensor, Vector2 fishPos) {
         if (food.Count < 1) {
             sensor.AddObservation(false);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
-            return;
+            return false;
         }
         
         float minDist = Mathf.Infinity;
         int index = 0;
         for (int i = 0; i < food.Count; i++) {
-            float dist = Vector2.Distance(fishPos, food[i].position);
+            float dist = Vector2.Distance(fishPos, food[i].localPosition);
             
             if (dist < minDist) {
                 minDist = dist;
@@ -37,16 +37,17 @@ public class EnvObservator : MonoBehaviour
         sensor.AddObservation(true);
         sensor.AddObservation(food[index].localPosition.x);
         sensor.AddObservation(food[index].localPosition.y);
+        return true;
     }
 
     /* Add observations for closest fish position or (0,0)
         and a boolean showing if fish exists*/
-    public void AddFishObservations(VectorSensor sensor, GameObject fish, Vector2 fishPos) {
+    public bool AddFishObservations(VectorSensor sensor, GameObject fish, Vector2 fishPos) {
         if (otherFish.Count < 2) {
             sensor.AddObservation(false);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
-            return;
+            return false;
         }
 
         float minDist = Mathf.Infinity;
@@ -65,6 +66,7 @@ public class EnvObservator : MonoBehaviour
         sensor.AddObservation(true);
         sensor.AddObservation(otherFish[index].localPosition.x);
         sensor.AddObservation(otherFish[index].localPosition.y);
+        return true;
     }
 
     public void AddFoodToList(Transform _food) {
@@ -85,7 +87,7 @@ public class EnvObservator : MonoBehaviour
         foreach(Transform f in food){
             if (f == null) continue;
 
-            f.position =  userLimits.GetPositionInAquarium();
+            MoveFoodTarget(f);
         }
     }
 

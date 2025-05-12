@@ -5,41 +5,29 @@ using UnityEngine;
 public class FishVariableAgresivity : MonoBehaviour, IFishBehaviour
 {
     [SerializeField] private FishAgent fishAgent;
+    // agresivity
     public float agresivityMaxThreshold = 0.7f;
     public float agresivityMinThreshold = 0.5f;
 
     public void CollidedWith(GameObject entity) {
         if (entity.TryGetComponent<Food>(out Food food)) {
             food.IsEaten(fishAgent.envObservator, fishAgent.isTraining);
-            fishAgent.Eat();
+            fishAgent.Eat(); 
         }
 
-        if (entity.CompareTag("Fish")) {
-            if (entity.TryGetComponent<FishAgent>(out FishAgent otherFish)) {
-                if (fishAgent.GetAttackDecision()) {
-                    // give other fish damage
-                }
-            }
+        // if (entity.CompareTag("Fish")) {
+        //     if (entity.TryGetComponent<FishAgent>(out FishAgent otherFish)) {
+        //         if (fishAgent.GetAttackDecision()) {
+        //             // give other fish damage
+        //         }
+        //     }
 
-            if (fishAgent.isTraining) {
-                float stageReward = 0;
-                if (fishAgent.GetAttackDecision()) {
-                float stress = fishAgent.GetStress();
-                    if (stress < agresivityMinThreshold) {
-                        stageReward = - (agresivityMinThreshold - stress) / agresivityMinThreshold;
-                    }
-                    else if (stress < agresivityMaxThreshold) {
-                        stageReward = (stress - agresivityMinThreshold) / (agresivityMaxThreshold - agresivityMinThreshold);
-                    }
-                    else {
-                        stageReward = 1 - ((1 - stress) / (1 - agresivityMaxThreshold));
-                    }
-                }
-                    
-                fishAgent.AddReward(stageReward);
-                fishAgent.EndEpisode();
-            }
-        }
+        //     // float stageReward = ComputeAttackReward();
+        //     float stageReward = 1;
+        //     fishAgent.AddReward(stageReward);
+
+        //     fishAgent.EndEpisode();
+        // }
 
         // if (entity.CompareTag("Wall")) {
         //     if (fishAgent.isTraining) {
@@ -47,5 +35,21 @@ public class FishVariableAgresivity : MonoBehaviour, IFishBehaviour
                 // fishAgent.EndEpisode();
         //     }
         // }
+    }
+
+    private float ComputeAttackReward() {
+        float stress = fishAgent.GetStress();
+        if (stress < agresivityMinThreshold)
+        {
+            return -(agresivityMinThreshold - stress) / agresivityMinThreshold;
+        }
+        else if (stress < agresivityMaxThreshold)
+        {
+            return (stress - agresivityMinThreshold) / (agresivityMaxThreshold - agresivityMinThreshold);
+        }
+        else
+        {
+            return 1 - ((1 - stress) / (1 - agresivityMaxThreshold));
+        }
     }
 }
