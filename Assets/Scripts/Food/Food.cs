@@ -28,9 +28,7 @@ public class Food : MonoBehaviour, IFood
 
     public void IsEaten(EnvObservator envObservator, bool training)
     {
-        if (training) {
-            envObservator.MoveFoodTarget(transform);
-        } else {
+        if (!training) {
             envObservator.RemoveFood(transform);
             Destroy(gameObject);
         }

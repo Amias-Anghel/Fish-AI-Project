@@ -37,6 +37,7 @@ public class EnvObservator : MonoBehaviour
         sensor.AddObservation(true);
         sensor.AddObservation(food[index].localPosition.x);
         sensor.AddObservation(food[index].localPosition.y);
+
         return true;
     }
 
@@ -81,6 +82,7 @@ public class EnvObservator : MonoBehaviour
 
     public void MoveFoodTarget(Transform _food) {
         _food.position = userLimits.GetPositionInAquarium();
+        //Debug.Log($"food: {_food.position} | local: {_food.localPosition}");
     }
 
     public void MoveAllFoodTargets() {

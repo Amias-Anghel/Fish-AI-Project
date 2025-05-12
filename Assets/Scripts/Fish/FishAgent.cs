@@ -145,6 +145,14 @@ public class FishAgent : Agent
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = Input.GetAxisRaw("Horizontal");
         continuousActions[1] = Input.GetAxisRaw("Vertical");
+        // Discrete attack decision
+        var discreteActions = actionsOut.DiscreteActions;
+        discreteActions[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
+    }
+
+    public void DebugPrintPosition() {
+        Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
+        Debug.Log($"fish: {headRelativePos}");
     }
 
     void Update()
@@ -177,6 +185,7 @@ public class FishAgent : Agent
     }
 
     public void Eat() {
+        //DebugPrintPosition();
         if (isTraining) {
             AddReward(hunger);
             EndEpisode();
@@ -223,8 +232,10 @@ public class FishAgent : Agent
 
         // select new swim location
         if (swimLocationTimer >= 20f || distToDest < swimDestDist) {
+            //DebugPrintPosition();
             swimLocationTimer = 0;
             swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+            //Debug.Log($"swim: {swimLocation}");
             // SetSwimGoalData();
         }
     }
