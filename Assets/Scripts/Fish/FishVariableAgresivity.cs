@@ -29,12 +29,11 @@ public class FishVariableAgresivity : MonoBehaviour, IFishBehaviour
         //     fishAgent.EndEpisode();
         // }
 
-        // if (entity.CompareTag("Wall")) {
-        //     if (fishAgent.isTraining) {
-                // fishAgent.AddReward(-1f);
-                // fishAgent.EndEpisode();
-        //     }
-        // }
+        if (entity.CompareTag("Wall")) {
+            if (fishAgent.isTraining) {
+                fishAgent.AddReward(-0.005f);
+            }
+        }
     }
 
     private float ComputeAttackReward() {

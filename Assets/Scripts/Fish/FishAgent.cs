@@ -83,13 +83,9 @@ public class FishAgent : Agent
         sensor.AddObservation(headRelativePos.x);
         sensor.AddObservation(headRelativePos.y);
 
-        Debug.Log($"fish local pos: {headRelativePos}");
-
         // swim position - 2
         sensor.AddObservation(swimLocation.x);
         sensor.AddObservation(swimLocation.y);
-
-        Debug.Log($"swim local pos: {swimLocation}");
 
         // if (attackDecision)
         // {
@@ -208,17 +204,18 @@ public class FishAgent : Agent
             } 
             else  { //if (!attackDecision || !hasTarget)
                 // calculate new proximity reward and swimGoalProcent
-                float targetDist = maxDist * swimGoalProcent;
-                if (distToDest < targetDist) {
-                    float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
-                    AddReward(reward);
-                    // Debug.Log("hit reward " + reward + " at procent " + swimGoalProcent);
-                    swimGoalProcent = Mathf.Max(0, swimGoalProcent - goalProcentStep);
-                }
+                // float targetDist = maxDist * swimGoalProcent;
+                // if (distToDest < targetDist) {
+                //     float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
+                //     AddReward(reward);
+                //     // Debug.Log("hit reward " + reward + " at procent " + swimGoalProcent);
+                //     swimGoalProcent = Mathf.Max(0, swimGoalProcent - goalProcentStep);
+                // }
 
                 if (distToDest < swimDestDist) {
                     // Debug.Log("reach reward: " + (stashedReward + 0.56) + " from which, stashed: " + stashedReward);
-                    AddReward(finalReward + stashedReward);
+                    // AddReward(finalReward + stashedReward);
+                    AddReward(1);
                     EndEpisode();
                 }
             }
@@ -228,7 +225,7 @@ public class FishAgent : Agent
         if (swimLocationTimer >= 20f || distToDest < swimDestDist) {
             swimLocationTimer = 0;
             swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
-            SetSwimGoalData();
+            // SetSwimGoalData();
         }
     }
 
