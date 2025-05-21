@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+
 public class FishAgent : Agent
 {
     public bool isTraining = true;
@@ -14,13 +15,11 @@ public class FishAgent : Agent
     private Rigidbody2D rb;
 
     [SerializeField] public EnvObservator envObservator;
-    [SerializeField] private Transform head;
+    [SerializeField] public Transform head;
 
     // stats
     private float health, stress, age;
     private float hunger;
-
-    private bool attackDecision;
 
     // swiming around
     private Vector2 swimLocation;
@@ -49,6 +48,9 @@ public class FishAgent : Agent
     float poopTimer;
     int poopCounter, spawnFreq;
 
+    // attack
+    bool attackDecision;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,7 +65,6 @@ public class FishAgent : Agent
     {
         if (isTraining) {
             envObservator.MoveAllFoodTargets();
-            envObservator.MovePupetFish();
 
             age = 0;
             health = 0;
@@ -87,15 +88,12 @@ public class FishAgent : Agent
         sensor.AddObservation(swimLocation.x);
         sensor.AddObservation(swimLocation.y);
 
-        // if (attackDecision)
-        // {
-            // if attacking, send as food destination the location of closest fish
-            // target fish position - 3 -- only if should attack decision is made
-            // hasTarget = envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
-        // } else {
-            // food position - 3
-            hasTarget = envObservator.AddFoodObservations(sensor, headRelativePos);
-        // }
+        // food position - 3
+        envObservator.AddFoodObservations(sensor, headRelativePos);
+
+        // target fish position - 3 -- only if should attack decision is made
+        // to add at stress training 
+        // envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
 
         // fish parameters that can change - 3
         sensor.AddObservation(hunger);
@@ -118,25 +116,12 @@ public class FishAgent : Agent
         // Attack decision (discrete)
         attackDecision = actions.DiscreteActions[0] == 1;
 
-        // AddAttackDecisionReward();
-    }
-
-    private void AddAttackDecisionReward() {
-        // Reward/punish the decision itself
-        float threshold = 0.5f;
         if (attackDecision)
         {
-            if (stress > threshold)
-                AddReward(+0.01f);   // good, it attacked when stressed
-            else
-                AddReward(-0.01f);   // bad, attacked too early
-        }
-        else
-        {
-            if (stress <= threshold)
-                AddReward(+0.005f);  // OK to not attack when calm
-            else
-                AddReward(-0.005f);  // wrong: should have attacked
+            // debug attack
+            // if attacking, send as food destination the location of closest fish
+            // to do after food training, together with stress training
+            // AddReward((2 * stress - 1) * 0.001f);
         }
     }
 
@@ -145,14 +130,6 @@ public class FishAgent : Agent
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = Input.GetAxisRaw("Horizontal");
         continuousActions[1] = Input.GetAxisRaw("Vertical");
-        // Discrete attack decision
-        var discreteActions = actionsOut.DiscreteActions;
-        discreteActions[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
-    }
-
-    public void DebugPrintPosition() {
-        Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
-        Debug.Log($"fish: {headRelativePos}");
     }
 
     void Update()
@@ -185,9 +162,9 @@ public class FishAgent : Agent
     }
 
     public void Eat() {
-        //DebugPrintPosition();
         if (isTraining) {
-            AddReward(hunger);
+            // AddReward(hunger);
+            if (hunger >= 0.5f) AddReward(1);
             EndEpisode();
         }
         SetPoopTimer();
@@ -195,7 +172,6 @@ public class FishAgent : Agent
         hunger = hunger < 0 ? 0 : hunger;
     }
 
-    private bool hasTarget;
     private void CheckSwimPosition() {
         swimLocationTimer += Time.deltaTime;
         Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
@@ -205,26 +181,26 @@ public class FishAgent : Agent
 
 
         if (isTraining){
-            if (foodExists || hasTarget) {
+            if (foodExists) {
                 if (distToDest < swimDestDist) {
-                    AddReward(1 - hunger);
+                    // AddReward(1 - hunger);
+                    if (hunger < 0.5f) AddReward(1);
                     EndEpisode();
                 }
             } 
-            else  { //if (!attackDecision || !hasTarget)
+            else { 
                 // calculate new proximity reward and swimGoalProcent
-                // float targetDist = maxDist * swimGoalProcent;
-                // if (distToDest < targetDist) {
-                //     float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
-                //     AddReward(reward);
-                //     // Debug.Log("hit reward " + reward + " at procent " + swimGoalProcent);
-                //     swimGoalProcent = Mathf.Max(0, swimGoalProcent - goalProcentStep);
-                // }
+                float targetDist = maxDist * swimGoalProcent;
+                if (distToDest < targetDist) {
+                    float reward = (1 - swimGoalProcent) * stepRewardMultiplier;
+                    AddReward(reward);
+                    // Debug.Log("hit reward " + reward + " at procent " + swimGoalProcent);
+                    swimGoalProcent = Mathf.Max(0, swimGoalProcent - goalProcentStep);
+                }
 
                 if (distToDest < swimDestDist) {
                     // Debug.Log("reach reward: " + (stashedReward + 0.56) + " from which, stashed: " + stashedReward);
-                    // AddReward(finalReward + stashedReward);
-                    AddReward(1);
+                    AddReward(finalReward + stashedReward);
                     EndEpisode();
                 }
             }
@@ -232,11 +208,9 @@ public class FishAgent : Agent
 
         // select new swim location
         if (swimLocationTimer >= 20f || distToDest < swimDestDist) {
-            //DebugPrintPosition();
             swimLocationTimer = 0;
             swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
-            //Debug.Log($"swim: {swimLocation}");
-            // SetSwimGoalData();
+            SetSwimGoalData();
         }
     }
 
@@ -302,20 +276,13 @@ public class FishAgent : Agent
         return stress;
     }
 
-    public float GetAge() {
-        return age;
-    }
-
-    public float GetHealth() {
-        return health;
-    }
-
-    public bool GetAttackDecision() {
+    public bool GetAttackDecision()
+    {
         return attackDecision;
     }
 
-
-    private void FlipAndRotate() {
+    private void FlipAndRotate()
+    {
         Vector2 direction = rb.velocity.normalized;
         bool faceRight = direction.x > 0;
 
@@ -323,9 +290,7 @@ public class FishAgent : Agent
         scale.x = faceRight ? -1 : 1;
         transform.localScale = scale;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg -90;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
-
-    
 }
