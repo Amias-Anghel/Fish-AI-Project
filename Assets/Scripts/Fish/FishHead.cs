@@ -18,7 +18,7 @@ public class FishHead : MonoBehaviour
         {
             if (fishAgent.isTraining)
             {
-                fishAgent.AddReward(-0.005f);
+                fishAgent.AddReward(-0.01f);
             }
         }
         

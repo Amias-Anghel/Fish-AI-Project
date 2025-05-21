@@ -76,18 +76,19 @@ public class FishAgent : Agent
         sensor.AddObservation(swimLocation.y);
 
 
-        bool attack = agentsManager.attackAgent == null ? false : agentsManager.attackAgent.GetAttackDecision();
+        // bool attack = agentsManager.attackAgent == null ? false : agentsManager.attackAgent.GetAttackDecision();
 
-        if (attack)
-        {
-            //target fish position - 3 -- only if should attack decision is made
-            hasTarget = envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
-        }
-        else
-        {
+        // if (attack)
+        // {
+        //     //target fish position - 3 -- only if should attack decision is made
+        //     hasTarget = envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
+        // }
+        // else
+        // {
             // food position - 3
             hasTarget = envObservator.AddFoodObservations(sensor, headRelativePos);
-        }
+        // }
+        sensor.AddObservation(hasTarget);
 
         // fish hunger
         sensor.AddObservation(hunger);
@@ -102,7 +103,7 @@ public class FishAgent : Agent
 
         rb.velocity = movement * movementSpeed;
 
-        if (rb.velocity.magnitude > 0.1f)
+        if (rb.velocity.magnitude > 0.2f)
             fishVisuals.FlipAndRotate();
     }
 
@@ -127,7 +128,6 @@ public class FishAgent : Agent
         if (isTraining) {
             AddReward(-0.001f);
         }
-
     }
 
     public void Eat() {
