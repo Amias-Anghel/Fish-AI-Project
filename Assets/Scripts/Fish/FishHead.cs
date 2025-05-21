@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class FishHead : MonoBehaviour
 {
-    [SerializeField] private GameObject fish;
-    private IFishBehaviour fishAgent;
-
-    void Start()
-    {
-        fishAgent = fish.GetComponent<IFishBehaviour>();
-    }
+    [SerializeField] private FishAgent fishAgent;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        fishAgent.CollidedWith(collision.gameObject);
+        if (collision.TryGetComponent<Food>(out Food food))
+        {
+            food.IsEaten(fishAgent.envObservator, fishAgent.isTraining);
+            fishAgent.Eat();
+        }
+
+        if (collision.CompareTag("Wall"))
+        {
+            if (fishAgent.isTraining)
+            {
+                fishAgent.AddReward(-0.005f);
+            }
+        }
+        
     }
 }

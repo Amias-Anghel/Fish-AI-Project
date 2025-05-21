@@ -1937,9 +1937,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0409a5c158db04f489504c79a2fe75c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTraining: 0
   hungerSlider: {fileID: 2820979739152216063}
   stressSlider: {fileID: 4185542664363655845}
   fishAgent: {fileID: 7348955856933608245}
+  attackAgent: {fileID: 3628581670722204872}
   attackingIndicator: {fileID: 7954459084671019995}
 --- !u!1 &9210499684937052378
 GameObject:
@@ -2059,6 +2061,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1632998068146177611}
     m_Modifications:
+    - target: {fileID: 857248430938525016, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
+      propertyPath: attackAgent
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3934304249014874818, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
       propertyPath: isTraining
       value: 1
@@ -2129,6 +2135,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5192855088259375456, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
   m_PrefabInstance: {fileID: 6009429957415709175}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3628581670722204872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7007187024192560447, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
+  m_PrefabInstance: {fileID: 6009429957415709175}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40b594e2da968040b6d0c4e9dded090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7348955856933608245 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3934304249014874818, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}

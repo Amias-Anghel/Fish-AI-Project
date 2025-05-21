@@ -7,6 +7,7 @@ using Unity.MLAgents.Sensors;
 
 public class FishAgent : Agent
 {
+    [SerializeField] private AgentsManager agentsManager;
     public bool isTraining = true;
 
     [SerializeField] private float movementSpeed = 30f;
@@ -18,7 +19,7 @@ public class FishAgent : Agent
     [SerializeField] public Transform head;
 
     // stats
-    private float health, stress, age;
+    private float health, age;
     private float hunger;
 
     // swiming around
@@ -48,9 +49,6 @@ public class FishAgent : Agent
     float poopTimer;
     int poopCounter, spawnFreq;
 
-    // attack
-    bool attackDecision;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -69,8 +67,6 @@ public class FishAgent : Agent
             age = 0;
             health = 0;
             hunger = Random.Range(0f, 1f);
-
-            ComputeStress();
         }
     }
 
@@ -88,16 +84,23 @@ public class FishAgent : Agent
         sensor.AddObservation(swimLocation.x);
         sensor.AddObservation(swimLocation.y);
 
-        // food position - 3
-        envObservator.AddFoodObservations(sensor, headRelativePos);
 
-        // target fish position - 3 -- only if should attack decision is made
-        // to add at stress training 
-        // envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
+        bool attack = agentsManager.attackAgent == null ? false : agentsManager.attackAgent.GetAttackDecision();
+
+        if (attack)
+        {
+            //target fish position - 3 -- only if should attack decision is made
+            envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
+        }
+        else
+        {
+            // food position - 3
+            envObservator.AddFoodObservations(sensor, headRelativePos);
+        }
 
         // fish parameters that can change - 3
         sensor.AddObservation(hunger);
-        sensor.AddObservation(stress);
+        sensor.AddObservation(0);
         sensor.AddObservation(health);
 
         // Total: 2 2 3 3 = 10
@@ -112,17 +115,6 @@ public class FishAgent : Agent
 
         if (rb.velocity.magnitude > 0.1f)
             FlipAndRotate();
-
-        // Attack decision (discrete)
-        attackDecision = actions.DiscreteActions[0] == 1;
-
-        if (attackDecision)
-        {
-            // debug attack
-            // if attacking, send as food destination the location of closest fish
-            // to do after food training, together with stress training
-            // AddReward((2 * stress - 1) * 0.001f);
-        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -138,8 +130,7 @@ public class FishAgent : Agent
             // hunger
             hunger += Time.deltaTime * 0.05f;
             hunger = hunger > 1 ? 1 : hunger;
-            // stress
-            ComputeStress();
+
             // poop
             Poop();
         }
@@ -151,14 +142,6 @@ public class FishAgent : Agent
             AddReward(-0.001f);
         }
 
-    }
-
-    private void ComputeStress() {
-        float evnwater = envObservator.envController.GetWaterCleaness();
-        float hungerWeight = 0.55f;
-        float waterWeight = 0.45f;
-        stress = Mathf.Clamp01((hunger * hungerWeight) + ((1 - evnwater) * waterWeight));
-        // Debug.Log("stress: " + stress_ + " hunger: " + hunger + " water: " + evnwater);
     }
 
     public void Eat() {
@@ -270,15 +253,6 @@ public class FishAgent : Agent
 
     public float GetHunger() {
         return hunger;
-    }
-
-    public float GetStress() {
-        return stress;
-    }
-
-    public bool GetAttackDecision()
-    {
-        return attackDecision;
     }
 
     private void FlipAndRotate()
