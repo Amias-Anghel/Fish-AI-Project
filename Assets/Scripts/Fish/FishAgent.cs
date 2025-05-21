@@ -8,19 +8,18 @@ using Unity.MLAgents.Sensors;
 public class FishAgent : Agent
 {
     [SerializeField] private AgentsManager agentsManager;
+    private FishVisuals fishVisuals;
     public bool isTraining = true;
 
-    [SerializeField] private float movementSpeed = 30f;
-    [SerializeField] private float lifeExpentancy = 30f;
-    
+    private float movementSpeed = 30f;
     private Rigidbody2D rb;
 
     [SerializeField] public EnvObservator envObservator;
     [SerializeField] public Transform head;
 
     // stats
-    private float health, age;
     private float hunger;
+    private bool hasTarget = true;
 
     // swiming around
     private Vector2 swimLocation;
@@ -43,29 +42,21 @@ public class FishAgent : Agent
     float finalReward = 0.2875f; // reward for reaching swim position
     float maxDist = 150;
 
-    // pooping
-
-    [SerializeField] private GameObject fishPoop;
-    float poopTimer;
-    int poopCounter, spawnFreq;
+    
 
     void Start()
     {
+        fishVisuals = GetComponent<FishVisuals>();
         rb = GetComponent<Rigidbody2D>();
         swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
 
         hunger = Random.Range(0f, 1f);
-
-        SetPoopTimer();
     }
 
     public override void OnEpisodeBegin()
     {
         if (isTraining) {
             envObservator.MoveAllFoodTargets();
-
-            age = 0;
-            health = 0;
             hunger = Random.Range(0f, 1f);
         }
     }
@@ -90,20 +81,18 @@ public class FishAgent : Agent
         if (attack)
         {
             //target fish position - 3 -- only if should attack decision is made
-            envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
+            hasTarget = envObservator.AddFishObservations(sensor, gameObject, headRelativePos);
         }
         else
         {
             // food position - 3
-            envObservator.AddFoodObservations(sensor, headRelativePos);
+            hasTarget = envObservator.AddFoodObservations(sensor, headRelativePos);
         }
 
-        // fish parameters that can change - 3
+        // fish hunger
         sensor.AddObservation(hunger);
-        sensor.AddObservation(0);
-        sensor.AddObservation(health);
 
-        // Total: 2 2 3 3 = 10
+        // Total: 2 2 3 1 = 8
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -114,7 +103,7 @@ public class FishAgent : Agent
         rb.velocity = movement * movementSpeed;
 
         if (rb.velocity.magnitude > 0.1f)
-            FlipAndRotate();
+            fishVisuals.FlipAndRotate();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -130,9 +119,6 @@ public class FishAgent : Agent
             // hunger
             hunger += Time.deltaTime * 0.05f;
             hunger = hunger > 1 ? 1 : hunger;
-
-            // poop
-            Poop();
         }
 
         // swiming
@@ -150,7 +136,7 @@ public class FishAgent : Agent
             if (hunger >= 0.5f) AddReward(1);
             EndEpisode();
         }
-        SetPoopTimer();
+        fishVisuals.SetPoopTimer();
         hunger -= 0.5f;
         hunger = hunger < 0 ? 0 : hunger;
     }
@@ -164,7 +150,7 @@ public class FishAgent : Agent
 
 
         if (isTraining){
-            if (foodExists) {
+            if (hasTarget) {
                 if (distToDest < swimDestDist) {
                     // AddReward(1 - hunger);
                     if (hunger < 0.5f) AddReward(1);
@@ -221,50 +207,11 @@ public class FishAgent : Agent
         // Debug.Log("New Episode: stashedReward: " + stashedReward + " procent: " + swimGoalProcent);
     }
 
-    private void SetPoopTimer() {
-        if (Time.time >= poopTimer && hunger < 0.7) {
-            poopTimer = Time.time + Random.Range(20f, 40f);
-            poopCounter = Random.Range(10, 20);
-        }
-    }
-
-    private void Poop() {
-        // if needs to poop, poop every spawnFreq frames
-        if (poopCounter > 0) {
-            if (spawnFreq == 0) {
-                poopCounter--;
-                Instantiate(fishPoop, transform.position, Quaternion.identity);
-                spawnFreq = 3; 
-            }
-            else {
-                spawnFreq--;
-            }
-        }
-    }
-
-    private bool foodExists = true;
-    public void TrainingFoodExists(bool exists) {
-        foodExists = exists;
-    }
-
     public Vector2 TrainingGetSwimPos() {
         return swimLocation;
     }
 
     public float GetHunger() {
         return hunger;
-    }
-
-    private void FlipAndRotate()
-    {
-        Vector2 direction = rb.velocity.normalized;
-        bool faceRight = direction.x > 0;
-
-        Vector3 scale = transform.localScale;
-        scale.x = faceRight ? -1 : 1;
-        transform.localScale = scale;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

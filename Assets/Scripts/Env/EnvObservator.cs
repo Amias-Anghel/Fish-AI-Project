@@ -17,7 +17,6 @@ public class EnvObservator : MonoBehaviour
         and a boolean showing if food exists*/
     public bool AddFoodObservations(VectorSensor sensor, Vector2 fishPos) {
         if (food.Count < 1) {
-            sensor.AddObservation(false);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
             return false;
@@ -34,7 +33,6 @@ public class EnvObservator : MonoBehaviour
             }
         }
 
-        sensor.AddObservation(true);
         sensor.AddObservation(food[index].localPosition.x);
         sensor.AddObservation(food[index].localPosition.y);
 
@@ -45,7 +43,6 @@ public class EnvObservator : MonoBehaviour
         and a boolean showing if fish exists*/
     public bool AddFishObservations(VectorSensor sensor, GameObject fish, Vector2 fishPos) {
         if (otherFish.Count < 2) {
-            sensor.AddObservation(false);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
             return false;
@@ -64,7 +61,6 @@ public class EnvObservator : MonoBehaviour
             }
         }
 
-        sensor.AddObservation(true);
         sensor.AddObservation(otherFish[index].localPosition.x);
         sensor.AddObservation(otherFish[index].localPosition.y);
         return true;

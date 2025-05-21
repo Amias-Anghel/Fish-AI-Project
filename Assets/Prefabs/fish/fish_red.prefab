@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 3934304249014874818}
   - component: {fileID: 168629565369714687}
   - component: {fileID: 7574607177815384583}
+  - component: {fileID: 9015875179557872953}
   m_Layer: 6
   m_Name: fish_red
   m_TagString: Fish
@@ -923,12 +924,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
-    NumStackedVectorObservations: 8
+    VectorObservationSize: 8
+    NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 02000000
-    VectorActionSize: 
+      BranchSizes: 
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -962,7 +963,6 @@ MonoBehaviour:
   lifeExpentancy: 30
   envObservator: {fileID: 0}
   head: {fileID: 568355149565627300}
-  fishPoop: {fileID: 1244566841720107997, guid: 0665680eb3f734b45bdae5d91cae3f0f, type: 3}
 --- !u!114 &168629565369714687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -993,3 +993,17 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: FoodAgentDemo
   DemonstrationDirectory: Demos
+--- !u!114 &9015875179557872953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199610423061748459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13bdbe846a9e1d0469c6e47d92b9c51c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTraining: 1
+  fishPoop: {fileID: 1244566841720107997, guid: 0665680eb3f734b45bdae5d91cae3f0f, type: 3}
