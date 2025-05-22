@@ -8080,6 +8080,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6353017601322050387, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7641975089158235646, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       propertyPath: m_Name
       value: env

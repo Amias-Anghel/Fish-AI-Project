@@ -38,13 +38,17 @@ public class TrainingUserSimulator : MonoBehaviour
     }
 
     private void SwitchFoodState() {
-        // bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.3f;
-        bool giveFood = !food.activeSelf;
+        bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.6f;
+        //bool giveFood = !food.activeSelf;
+        // bool giveFood = false;
         
-        if (giveFood && !food.activeSelf) {
+        if (giveFood && !food.activeSelf)
+        {
             food.SetActive(true);
             envObservator.AddFoodToList(food.transform);
-        } else if (!giveFood && food.activeSelf) {
+        }
+        else if (!giveFood && food.activeSelf)
+        {
             envObservator.RemoveFood(food.transform);
             food.SetActive(false);
         }
