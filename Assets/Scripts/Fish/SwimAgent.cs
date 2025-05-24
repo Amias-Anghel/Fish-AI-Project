@@ -17,7 +17,7 @@ public class SwimAgent : Agent
 
     // stats
     private float hunger;
-    private float hungetTreshold = 0.5f;
+    private float hungerTreshold = 0.5f;
     private bool hasTarget = true;
 
     // swiming around
@@ -39,6 +39,7 @@ public class SwimAgent : Agent
         {
             envObservator.MoveAllFoodTargets();
             hunger = Random.Range(0f, 1f);
+            hungerTreshold = Random.Range(0f, 1f);
         }
     }
 
@@ -46,7 +47,7 @@ public class SwimAgent : Agent
     {
         // hunger - 2
         sensor.AddObservation(hunger);
-        sensor.AddObservation(hungetTreshold);
+        sensor.AddObservation(hungerTreshold);
 
         // fish position - 2
         Vector2 headRelativePos = transform.parent.InverseTransformPoint(head.position);
@@ -70,7 +71,7 @@ public class SwimAgent : Agent
 
         // target direction - 2 && food pos - 2
         Vector2 directionToTarget;
-        if (hasTarget && hunger >= hungetTreshold)
+        if (hasTarget && hunger >= hungerTreshold)
         {
             Vector2 targetPos = envObservator.GetClosestFoodPos(headRelativePos);
             sensor.AddObservation(targetPos);
@@ -125,7 +126,7 @@ public class SwimAgent : Agent
     {
         if (isTraining)
         {
-            if (hunger >= hungetTreshold) AddReward(1);
+            if (hunger >= hungerTreshold) AddReward(1);
             EndEpisode();
         }
 
@@ -148,8 +149,8 @@ public class SwimAgent : Agent
             {
                 if (distToDest < swimDestDist)
                 {
-                    if (hunger < hungetTreshold) AddReward(1);
-                    if (hunger > hungetTreshold) AddReward(-1);
+                    if (hunger < hungerTreshold) AddReward(1);
+                    if (hunger > hungerTreshold) AddReward(-1);
                     EndEpisode();
                 }
             }
@@ -182,6 +183,6 @@ public class SwimAgent : Agent
     }
     
     public float GetHungerThreshold() {
-        return hungetTreshold;
+        return hungerTreshold;
     }
 }
