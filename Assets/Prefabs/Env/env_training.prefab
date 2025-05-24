@@ -1650,6 +1650,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2178674154687681090, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
+      propertyPath: isTraining
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178674154687681090, guid: 210fea6b9723b3a4e866695476ecc958, type: 3}
       propertyPath: envObservator
       value: 
       objectReference: {fileID: 1651292823180306676}
@@ -1878,6 +1882,10 @@ PrefabInstance:
       propertyPath: swimAgent
       value: 
       objectReference: {fileID: 5573763285211249589}
+    - target: {fileID: 2465533347467744239, guid: d9d8d99e00884924787da1d2a5894be2, type: 3}
+      propertyPath: isTraining
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2465533347467744239, guid: d9d8d99e00884924787da1d2a5894be2, type: 3}
       propertyPath: attackAgent
       value: 
