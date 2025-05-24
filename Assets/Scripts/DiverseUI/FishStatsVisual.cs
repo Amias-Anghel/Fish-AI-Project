@@ -10,6 +10,7 @@ public class FishStatsVisual : MonoBehaviour
     [SerializeField] private Slider hungerThreshold;
     [SerializeField] private Slider stressSlider;
     [SerializeField] private Slider stressThreshold;
+    [SerializeField] private Slider healthSlider;
     [SerializeField] public SwimAgent swimAgent;
     [SerializeField] public AttackAgent attackAgent;
     [SerializeField] private GameObject attackingIndicator;
@@ -33,6 +34,7 @@ public class FishStatsVisual : MonoBehaviour
             stressSlider.value = attackAgent.GetStress();
             stressThreshold.value = attackAgent.GetAgresivityThreshold();
             attackingIndicator.GetComponent<Image>().color = attackAgent.GetAttackDecision() ? Color.red : Color.green;
+            healthSlider.value = attackAgent.GetHealth();
         }
     }
 }

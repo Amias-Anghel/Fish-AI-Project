@@ -7,15 +7,17 @@ public class AttackAgent : Agent
 {
     public bool isTraining = false;
     private bool attackDecision;
-    [Range(0f, 1f)] [SerializeField] private float stress;
+    [Range(0f, 1f)][SerializeField] private float stress;
 
     [SerializeField] private AgentsManager agentsManager;
 
     [Range(0f, 1f)] public float agresivityThreshold = 0.5f;
 
+    private float health = 1f;
+
     void Start()
     {
-        ComputeStress();   
+        ComputeStress();
     }
 
     public override void OnEpisodeBegin()
@@ -77,16 +79,25 @@ public class AttackAgent : Agent
         if (!isTraining)
         {
             ComputeStress();
+           
+            if (health <= 0)
+            {
+                Die();
+            }
         }
     }
 
     private void ComputeStress()
     {
         float evnwater = agentsManager.swimAgent.envObservator.envController.GetWaterCleaness();
+        float hunger = agentsManager.swimAgent.GetHunger();
+        float hungerThreshold = agentsManager.swimAgent.GetHungerThreshold();
+
+        hunger *= 1f - hungerThreshold;
+
         float hungerWeight = 0.55f;
         float waterWeight = 0.45f;
-        stress = Mathf.Clamp01((agentsManager.swimAgent.GetHunger() * hungerWeight) + ((1 - evnwater) * waterWeight));
-        // Debug.Log("stress: " + stress_ + " hunger: " + hunger + " water: " + evnwater);
+        stress = Mathf.Clamp01((hunger * hungerWeight) + ((1 - evnwater) * waterWeight));
     }
 
     public bool GetAttackDecision()
@@ -101,5 +112,23 @@ public class AttackAgent : Agent
     public float GetAgresivityThreshold()
     {
         return agresivityThreshold;
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float TakeDamage(float dmg = 0.05f)
+    {
+        health -= dmg;
+
+        return health;
+    }
+
+    private void Die()
+    {
+        agentsManager.swimAgent.envObservator.RemoveFish(agentsManager.transform);
+        Destroy(agentsManager.gameObject);
     }
 }

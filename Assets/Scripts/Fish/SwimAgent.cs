@@ -9,7 +9,9 @@ public class SwimAgent : Agent
     private FishVisuals fishVisuals;
     public bool isTraining = true;
 
-    private float movementSpeed = 30f;
+    [SerializeField] private float movementSpeed = 30f;
+    [SerializeField] private float maxSpeed = 40f;
+    [SerializeField] private float minSpeed = 30f;
     private Rigidbody2D rb;
 
     [SerializeField] public EnvObservator envObservator;
@@ -30,6 +32,8 @@ public class SwimAgent : Agent
         rb = GetComponent<Rigidbody2D>();
 
         hunger = 0;
+
+        movementSpeed = Random.Range(minSpeed, maxSpeed);
     }
 
     void Start()

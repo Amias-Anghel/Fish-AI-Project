@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 5387301408347568514}
   m_Layer: 6
   m_Name: body
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 8058793404209861326}
   m_Layer: 6
   m_Name: head
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afedffdb93622042bb310fc77ed85cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishAgent: {fileID: 2178674154687681090}
+  swimAgent: {fileID: 2178674154687681090}
   attackAgent: {fileID: 7007187024192560447}
 --- !u!70 &4400658859963432417
 CapsuleCollider2D:
@@ -974,6 +974,9 @@ MonoBehaviour:
   MaxStep: 0
   agentsManager: {fileID: 857248430938525016}
   isTraining: 0
+  movementSpeed: 30
+  maxSpeed: 40
+  minSpeed: 30
   envObservator: {fileID: 0}
   head: {fileID: 568355149565627300}
   hunger: 0
