@@ -82,10 +82,10 @@ public class AttackAgent : Agent
 
     private void ComputeStress()
     {
-        float evnwater = agentsManager.fishAgent.envObservator.envController.GetWaterCleaness();
+        float evnwater = agentsManager.swimAgent.envObservator.envController.GetWaterCleaness();
         float hungerWeight = 0.55f;
         float waterWeight = 0.45f;
-        stress = Mathf.Clamp01((agentsManager.fishAgent.GetHunger() * hungerWeight) + ((1 - evnwater) * waterWeight));
+        stress = Mathf.Clamp01((agentsManager.swimAgent.GetHunger() * hungerWeight) + ((1 - evnwater) * waterWeight));
         // Debug.Log("stress: " + stress_ + " hunger: " + hunger + " water: " + evnwater);
     }
 

@@ -14,10 +14,10 @@ public class UserLimits : MonoBehaviour
             && pos.y >= downleft.position.y && pos.y <= upleft.position.y;
     }
 
-    [SerializeField] private Transform aq_up;
-    [SerializeField] private Transform aq_down;
-    [SerializeField] private Transform aq_right;
-    [SerializeField] private Transform aq_left;
+    [SerializeField] public Transform aq_up;
+    [SerializeField] public Transform aq_down;
+    [SerializeField] public Transform aq_right;
+    [SerializeField] public Transform aq_left;
 
     public bool IsInAquariumLimits(Vector2 pos) {
         return pos.x >= aq_left.position.x && pos.x <= aq_right.position.x 

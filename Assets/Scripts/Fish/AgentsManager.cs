@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class AgentsManager : MonoBehaviour
 {
-    public FishAgent fishAgent;
+    public SwimAgent swimAgent;
     public AttackAgent attackAgent;
 }

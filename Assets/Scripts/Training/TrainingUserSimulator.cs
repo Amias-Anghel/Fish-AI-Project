@@ -8,7 +8,7 @@ public class TrainingUserSimulator : MonoBehaviour
     // switch between food and no food randomly
 
     [SerializeField] private GameObject food;
-    [SerializeField] private FishAgent fish;
+    [SerializeField] private SwimAgent fish;
     [SerializeField] private EnvObservator envObservator;
 
     private float switchTimer, switchTime;
@@ -40,7 +40,7 @@ public class TrainingUserSimulator : MonoBehaviour
     private void SwitchFoodState() {
         bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.6f;
         //bool giveFood = !food.activeSelf;
-        // bool giveFood = false;
+        // bool giveFood = true;
         
         if (giveFood && !food.activeSelf)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FishHead : MonoBehaviour
 {
-    [SerializeField] private FishAgent fishAgent;
+    [SerializeField] private SwimAgent fishAgent;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,7 +18,8 @@ public class FishHead : MonoBehaviour
         {
             if (fishAgent.isTraining)
             {
-                fishAgent.AddReward(-0.01f);
+                fishAgent.AddReward(-1f);
+                fishAgent.EndEpisode();
             }
         }
         

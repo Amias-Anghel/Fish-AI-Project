@@ -86,7 +86,7 @@ public class FishAgent : Agent
         // else
         // {
             // food position - 3
-            hasTarget = envObservator.AddFoodObservations(sensor, headRelativePos);
+            //hasTarget = envObservator.AddFoodObservations(sensor, headRelativePos);
         // }
         sensor.AddObservation(hasTarget);
 
@@ -103,7 +103,7 @@ public class FishAgent : Agent
 
         rb.velocity = movement * movementSpeed;
 
-        if (rb.velocity.magnitude > 0.2f)
+        if (rb.velocity.magnitude > 0.1f)
             fishVisuals.FlipAndRotate();
     }
 
