@@ -39,15 +39,13 @@ public class EnvObservator : MonoBehaviour
 
     /* Add observations for closest fish position or (0,0)
         and a boolean showing if fish exists*/
-    public bool AddFishObservations(VectorSensor sensor, GameObject fish, Vector2 fishPos)
-    {
-        if (otherFish.Count < 2)
-        {
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            return false;
-        }
 
+    public bool HasFishTarget() {
+        return otherFish.Count > 1;
+    }
+
+    public Vector2 GetClosestFishPos(Vector2 fishPos, Transform fish)
+    {
         float minDist = Mathf.Infinity;
         int index = 0;
         for (int i = 0; i < otherFish.Count; i++)
@@ -63,9 +61,7 @@ public class EnvObservator : MonoBehaviour
             }
         }
 
-        sensor.AddObservation(otherFish[index].localPosition.x);
-        sensor.AddObservation(otherFish[index].localPosition.y);
-        return true;
+        return otherFish[index].localPosition;
     }
 
     public void AddAquariumLimits(VectorSensor sensor)
@@ -86,8 +82,20 @@ public class EnvObservator : MonoBehaviour
         
         food.Remove(_food);
     }
+    
+    public void AddFishToList(Transform _fish)
+    {
+        otherFish.Add(_fish);
+    }
 
-    public void MoveFoodTarget(Transform _food) {
+    public void RemoveFish(Transform _fish) {
+        if (!otherFish.Contains(_fish)) return;
+        
+        otherFish.Remove(_fish);
+    }
+
+    public void MoveFoodTarget(Transform _food)
+    {
         _food.position = userLimits.GetPositionInAquarium();
     }
 

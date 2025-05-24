@@ -204,6 +204,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
   isTraining: 0
+  stress: 0
   agentsManager: {fileID: 857248430938525016}
   agresivityThreshold: 0.5
 --- !u!114 &7447724269076280633
@@ -666,6 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishAgent: {fileID: 2178674154687681090}
+  attackAgent: {fileID: 7007187024192560447}
 --- !u!70 &4400658859963432417
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -952,7 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13bdbe846a9e1d0469c6e47d92b9c51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTraining: 1
+  isTraining: 0
   fishPoop: {fileID: 1244566841720107997, guid: 0665680eb3f734b45bdae5d91cae3f0f, type: 3}
 --- !u!114 &2178674154687681090
 MonoBehaviour:
@@ -971,9 +973,11 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   agentsManager: {fileID: 857248430938525016}
-  isTraining: 1
+  isTraining: 0
   envObservator: {fileID: 0}
   head: {fileID: 568355149565627300}
+  hunger: 0
+  hungerTreshold: 0.5
 --- !u!114 &8279676686964410668
 MonoBehaviour:
   m_ObjectHideFlags: 0

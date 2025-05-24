@@ -7,11 +7,11 @@ public class AttackAgent : Agent
 {
     public bool isTraining = false;
     private bool attackDecision;
-    private float stress;
+    [Range(0f, 1f)] [SerializeField] private float stress;
 
     [SerializeField] private AgentsManager agentsManager;
 
-    public float agresivityThreshold = 0.5f;
+    [Range(0f, 1f)] public float agresivityThreshold = 0.5f;
 
     void Start()
     {

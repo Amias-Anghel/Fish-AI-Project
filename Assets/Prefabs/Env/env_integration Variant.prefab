@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1103218283930928336, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: attackAgent
+      value: 
+      objectReference: {fileID: 5840922500778779206}
     - target: {fileID: 1632998068146177611, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8
@@ -68,10 +72,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7348955856933608245, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
-      propertyPath: agentsManager
+    - target: {fileID: 5319903723387958543, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377174394787112111, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
+      propertyPath: attackAgent
       value: 
-      objectReference: {fileID: 4996901302715337655}
+      objectReference: {fileID: 5840922500778779206}
     - target: {fileID: 7641975089158235646, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       propertyPath: m_Name
       value: env_integration Variant
@@ -90,41 +98,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1632998068146177611, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8634121914886218547}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3228619433501602588, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 4996901302715337655}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
---- !u!114 &479866142323592635 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7348955856933608245, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
-  m_PrefabInstance: {fileID: 7157468700937983630}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5735953804456338834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d9385bc663b614cacc5a6bcd1e1b91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &5735953804456338834 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3228619433501602588, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}
-  m_PrefabInstance: {fileID: 7157468700937983630}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4996901302715337655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5735953804456338834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78798c00ae24bf9499b0ba82174b5fb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishAgent: {fileID: 479866142323592635}
-  attackAgent: {fileID: 5840922500778779206}
 --- !u!114 &5840922500778779206 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3628581670722204872, guid: b70b49fa8679cb748a97c7b25444fd8c, type: 3}

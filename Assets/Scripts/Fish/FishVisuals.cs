@@ -16,7 +16,7 @@ public class FishVisuals : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        SetPoopTimer();
+        poopTimer = Time.time + Random.Range(20f, 40f);
     }
 
     void Update()

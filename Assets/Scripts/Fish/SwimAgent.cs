@@ -16,21 +16,26 @@ public class SwimAgent : Agent
     [SerializeField] public Transform head;
 
     // stats
-    private float hunger;
-    private float hungerTreshold = 0.5f;
+    [Range(0f, 1f)] [SerializeField] private float hunger;
+    [Range(0f, 1f)] [SerializeField] private float hungerTreshold = 0.5f;
     private bool hasTarget = true;
 
     // swiming around
     private Vector2 swimLocation;
     private float swimLocationTimer;
 
-    void Start()
+    void Awake()
     {
         fishVisuals = GetComponent<FishVisuals>();
         rb = GetComponent<Rigidbody2D>();
-        swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
 
-        hunger = Random.Range(0f, 1f);
+        hunger = 0;
+    }
+
+    void Start()
+    {
+        swimLocation = transform.parent.InverseTransformPoint(envObservator.userLimits.GetPositionInAquarium());
+        
     }
 
     public override void OnEpisodeBegin()
@@ -65,13 +70,30 @@ public class SwimAgent : Agent
         // aq limits - 4
         envObservator.AddAquariumLimits(sensor);
 
-        hasTarget = envObservator.HasFoodTarget();
+        // attack decision taken into account
+        bool attack = agentsManager.attackAgent != null ? agentsManager.attackAgent.GetAttackDecision() : false;
+        if (attack)
+        {
+            hasTarget = envObservator.HasFishTarget();
+        }
+        else
+        {
+            hasTarget = envObservator.HasFoodTarget();
+        }
+
         // food exists - 1
         sensor.AddObservation(hasTarget);
 
-        // target direction - 2 && food pos - 2
+        // target direction - 2 && food/fish pos - 2
         Vector2 directionToTarget;
-        if (hasTarget && hunger >= hungerTreshold)
+
+        if (hasTarget && attack)
+        {
+            Vector2 targetPos = envObservator.GetClosestFishPos(headRelativePos, transform);
+            sensor.AddObservation(targetPos);
+            directionToTarget = (targetPos - headRelativePos).normalized;
+        }
+        else if (hasTarget && hunger >= hungerTreshold)
         {
             Vector2 targetPos = envObservator.GetClosestFoodPos(headRelativePos);
             sensor.AddObservation(targetPos);

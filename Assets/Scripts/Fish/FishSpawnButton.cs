@@ -27,11 +27,11 @@ public class FishSpawnButton : MonoBehaviour
 
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         mouseWorldPos.z = 0;
-        
+
         spawnedFish = Instantiate(fish[Random.Range(0, fish.Count)], mouseWorldPos, Quaternion.identity);
         spawnedFish.transform.SetParent(envObservator.gameObject.transform);
-        spawnedFish.GetComponent<FishAgent>().envObservator = envObservator;
-        spawnedFish.transform.GetChild(0).Find("fall").GetComponent<FishFall>().SetFall();
+        spawnedFish.GetComponent<SwimAgent>().envObservator = envObservator;
+        spawnedFish.transform.GetChild(1).Find("fall").GetComponent<FishFall>().SetFall();
     }
 
     void OnMouseDrag()
@@ -50,8 +50,13 @@ public class FishSpawnButton : MonoBehaviour
     {
         spawnNew = true;
 
-        if (!userLimits.IsInUserLimits(spawnedFish.transform.position)) {
+        if (!userLimits.IsInUserLimits(spawnedFish.transform.position))
+        {
             Destroy(spawnedFish);
+        }
+        else
+        {
+            envObservator.AddFishToList(spawnedFish.transform);
         }
     }
 }
