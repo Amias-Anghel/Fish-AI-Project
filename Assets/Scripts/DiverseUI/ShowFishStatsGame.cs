@@ -25,7 +25,9 @@ public class ShowFishStatsGame : MonoBehaviour
                 if (fishRigidbody != null)
                 {
                     fishStatsVisual.gameObject.SetActive(true);
-                    fishStatsVisual.fishAgent = fishRigidbody.gameObject.GetComponent<FishAgent>();
+                    AgentsManager agentsManager = fishRigidbody.gameObject.GetComponent<AgentsManager>();
+                    fishStatsVisual.swimAgent = agentsManager.swimAgent;
+                    fishStatsVisual.attackAgent = agentsManager.attackAgent;
                 }
             } else {
                 fishStatsVisual.gameObject.SetActive(false);

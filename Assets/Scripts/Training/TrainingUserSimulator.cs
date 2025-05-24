@@ -8,7 +8,7 @@ public class TrainingUserSimulator : MonoBehaviour
     // switch between food and no food randomly
 
     [SerializeField] private GameObject food;
-    [SerializeField] private List<FishAgent> fish;
+    [SerializeField] private SwimAgent fish;
     [SerializeField] private EnvObservator envObservator;
 
     private float switchTimer, switchTime;
@@ -31,30 +31,26 @@ public class TrainingUserSimulator : MonoBehaviour
 
     private void GiveFoodDecision() {
         if (Time.time >= switchTimer) {
-            switchTime = UnityEngine.Random.Range(10f, 20f);
+            switchTime = 15f;
             switchTimer = Time.time + switchTime + Time.deltaTime;
             SwitchFoodState();
         }
     }
 
     private void SwitchFoodState() {
-        bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.5f;
-
-        if (giveFood && !food.activeSelf) {
+        bool giveFood = UnityEngine.Random.Range(0f, 1f) > 0.6f;
+        //bool giveFood = !food.activeSelf;
+        // bool giveFood = true;
+        
+        if (giveFood && !food.activeSelf)
+        {
             food.SetActive(true);
             envObservator.AddFoodToList(food.transform);
-
-            foreach(FishAgent f in fish) {
-                f.TrainingFoodExists(giveFood);
-            }
-
-        } else if (!giveFood && food.activeSelf){
+        }
+        else if (!giveFood && food.activeSelf)
+        {
             envObservator.RemoveFood(food.transform);
             food.SetActive(false);
-
-            foreach(FishAgent f in fish) {
-                f.TrainingFoodExists(giveFood);
-            }
         }
 
     }
@@ -78,7 +74,7 @@ public class TrainingUserSimulator : MonoBehaviour
     [SerializeField] private GameObject swimLocationVisual;
 
     private void ShowSwimLocationFish0() {
-        Vector2 pos = fish[0].TrainingGetSwimPos();
+        Vector2 pos = fish.TrainingGetSwimPos();
         swimLocationVisual.transform.localPosition = pos;
     }
 }

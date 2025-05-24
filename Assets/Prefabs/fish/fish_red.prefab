@@ -123,6 +123,104 @@ Transform:
   - {fileID: 6267667286037164657}
   m_Father: {fileID: 5192855088259375456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1923548266239859960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8649489980595633098}
+  - component: {fileID: 6994569575371939710}
+  - component: {fileID: 7007187024192560447}
+  - component: {fileID: 7447724269076280633}
+  m_Layer: 6
+  m_Name: attackAgent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8649489980595633098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923548266239859960}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5192855088259375456}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6994569575371939710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923548266239859960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 2
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 02000000
+    VectorActionSize: 02000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 5022602860645237092, guid: 6caa472767830d84d92b781309254abd, type: 3}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: AttackDecision
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_ObservableAttributeHandling: 0
+--- !u!114 &7007187024192560447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923548266239859960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40b594e2da968040b6d0c4e9dded090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 1000
+  isTraining: 0
+  stress: 0
+  agentsManager: {fileID: 857248430938525016}
+  agresivityThreshold: 0.5
+--- !u!114 &7447724269076280633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923548266239859960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &1984023450566459110
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +317,7 @@ GameObject:
   - component: {fileID: 5387301408347568514}
   m_Layer: 6
   m_Name: body
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -354,6 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb76ece5e124c247add2fab65ce834f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRandom: 0
+  colorSet: []
 --- !u!1 &6491397776559264679
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,12 +631,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568355149565627300}
-  - component: {fileID: 4400658859963432417}
   - component: {fileID: 6641300490270403879}
+  - component: {fileID: 4400658859963432417}
   - component: {fileID: 8058793404209861326}
   m_Layer: 6
   m_Name: head
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -556,6 +656,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7219280773405562706}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6641300490270403879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7868802249703472381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afedffdb93622042bb310fc77ed85cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swimAgent: {fileID: 2178674154687681090}
+  attackAgent: {fileID: 7007187024192560447}
 --- !u!70 &4400658859963432417
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -591,19 +705,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.03514552, y: 0.4481628}
   m_Size: {x: 4.283935, y: 4.283935}
   m_Direction: 0
---- !u!114 &6641300490270403879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7868802249703472381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afedffdb93622042bb310fc77ed85cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishAgent: {fileID: 3934304249014874818}
 --- !u!61 &8058793404209861326
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -743,13 +844,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5192855088259375456}
   - component: {fileID: 5121646419400111266}
+  - component: {fileID: 857248430938525016}
   - component: {fileID: 815076137502788260}
-  - component: {fileID: 3934304249014874818}
-  - component: {fileID: 168629565369714687}
-  - component: {fileID: 7574607177815384583}
+  - component: {fileID: 9015875179557872953}
+  - component: {fileID: 2178674154687681090}
+  - component: {fileID: 8279676686964410668}
   m_Layer: 6
   m_Name: fish_red
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -767,6 +869,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8649489980595633098}
   - {fileID: 7219280773405562706}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -797,6 +900,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &857248430938525016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199610423061748459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78798c00ae24bf9499b0ba82174b5fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swimAgent: {fileID: 2178674154687681090}
+  attackAgent: {fileID: 7007187024192560447}
+  lifeSpanSeconds: 60
+  deadFish: {fileID: 3748630485411780912, guid: 95646503ec14d5749bfc6646d03961da, type: 3}
 --- !u!114 &815076137502788260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,24 +929,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
-    NumStackedVectorObservations: 8
+    VectorObservationSize: 17
+    NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 02000000
-    VectorActionSize: 
+      BranchSizes: 
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 2b0fb214818fe114db4ac31cc6cae4c4, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 418fad98b3665974f86545f54aa1fe08, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: Fish
+  m_BehaviorName: Swim
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
---- !u!114 &3934304249014874818
+--- !u!114 &9015875179557872953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -836,20 +955,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 9199610423061748459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d9385bc663b614cacc5a6bcd1e1b91, type: 3}
+  m_Script: {fileID: 11500000, guid: 13bdbe846a9e1d0469c6e47d92b9c51c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTraining: 0
+  fishPoop: {fileID: 1244566841720107997, guid: 0665680eb3f734b45bdae5d91cae3f0f, type: 3}
+--- !u!114 &2178674154687681090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199610423061748459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25692c452b61d824eb7024c884890fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 0
+  agentsManager: {fileID: 857248430938525016}
   isTraining: 0
   movementSpeed: 30
-  lifeExpentancy: 30
+  maxSpeed: 40
+  minSpeed: 30
   envObservator: {fileID: 0}
   head: {fileID: 568355149565627300}
-  fishPoop: {fileID: 1244566841720107997, guid: 0665680eb3f734b45bdae5d91cae3f0f, type: 3}
---- !u!114 &168629565369714687
+  hunger: 0
+  hungerTreshold: 0.5
+--- !u!114 &8279676686964410668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -863,19 +999,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!114 &7574607177815384583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9199610423061748459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Record: 0
-  NumStepsToRecord: 0
-  DemonstrationName: FoodAgentDemo
-  DemonstrationDirectory: Demos
