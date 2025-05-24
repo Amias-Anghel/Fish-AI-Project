@@ -452,6 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb76ece5e124c247add2fab65ce834f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRandom: 0
+  colorSet: []
 --- !u!1 &6491397776559264679
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +914,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swimAgent: {fileID: 2178674154687681090}
   attackAgent: {fileID: 7007187024192560447}
+  lifeSpanSeconds: 60
+  deadFish: {fileID: 3748630485411780912, guid: 95646503ec14d5749bfc6646d03961da, type: 3}
 --- !u!114 &815076137502788260
 MonoBehaviour:
   m_ObjectHideFlags: 0

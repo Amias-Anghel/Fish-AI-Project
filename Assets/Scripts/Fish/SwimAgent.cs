@@ -42,6 +42,11 @@ public class SwimAgent : Agent
         
     }
 
+    public void SetRandom()
+    {
+        hungerTreshold = Random.Range(0f, 1f);
+    }
+
     public override void OnEpisodeBegin()
     {
         if (isTraining)

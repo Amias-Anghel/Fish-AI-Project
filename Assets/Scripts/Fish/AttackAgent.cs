@@ -20,6 +20,11 @@ public class AttackAgent : Agent
         ComputeStress();
     }
 
+    public void SetRandom()
+    {
+        agresivityThreshold = Random.Range(0, 1f);
+    }
+
     public override void OnEpisodeBegin()
     {
         if (isTraining)
