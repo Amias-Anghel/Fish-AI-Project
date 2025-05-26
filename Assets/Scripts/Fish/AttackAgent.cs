@@ -87,7 +87,7 @@ public class AttackAgent : Agent
            
             if (health <= 0)
             {
-                Die();
+                agentsManager.Die();
             }
         }
     }
@@ -129,11 +129,5 @@ public class AttackAgent : Agent
         health -= dmg;
 
         return health;
-    }
-
-    private void Die()
-    {
-        agentsManager.swimAgent.envObservator.RemoveFish(agentsManager.transform);
-        Destroy(agentsManager.gameObject);
     }
 }

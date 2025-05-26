@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Hardware;
 using UnityEngine;
 
 public class AgentsManager : MonoBehaviour
@@ -22,9 +20,15 @@ public class AgentsManager : MonoBehaviour
     private IEnumerator CountLifeSpan()
     {
         yield return new WaitForSecondsRealtime(lifeSpanSeconds);
+        Die();
+    }
+
+    public void Die()
+    {
         GameObject dead = Instantiate(deadFish, transform.parent);
         dead.transform.localPosition = transform.localPosition;
         dead.transform.localScale = transform.localScale;
+        swimAgent.envObservator.RemoveFish(transform);
         Destroy(gameObject);
     }
 }
